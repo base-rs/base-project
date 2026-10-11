@@ -16,7 +16,7 @@ Choose the simplest structure that makes the behavior, state, and responsibiliti
 Treat the Cargo crate name as the root namespace. Do not repeat it with a same-named top-level module. Keep modules for meaningful domain concepts, and re-export the main public API from the crate root when deeper modules only organize its implementation. For example, callers can import the agent-context API from the root:
 
 ```rust
-use bake_agent_context::{ContextIndex, Installer, install_skills, list_skills};
+use bake_agent_context::{Installer, install_skills, list_skills};
 ```
 
 Keep public paths independent of redundant namespace layers such as `bake_agent_context::context`. Public modules remain useful when they name a real part of the API: a crate named `protocol_http` can expose `protocol_http::headers::AcceptHeader`, where `headers` identifies the domain concept within the crate.
