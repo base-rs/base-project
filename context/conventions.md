@@ -1,4 +1,4 @@
-# Socketry Rust Conventions
+# Conventions
 
 Use these conventions for Rust repositories in the Socketry organization. A project's local `.agents/` files and package-specific documentation can add requirements for that repository.
 

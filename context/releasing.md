@@ -9,7 +9,7 @@ Use this skill to prepare releases for Socketry Rust projects. Read the root `ag
 
 ## Prepare a release
 
-Keep one Cargo workspace when its publishable packages share a version, release notes, and tag. Use separate repositories for packages that need independent release timing. See the Repository and package boundaries section of the Socketry Rust Conventions guide supplied by `socketry-project`.
+Keep one Cargo workspace when its publishable packages share a version, release notes, and tag. Use separate repositories for packages that need independent release timing. See the Repository and package boundaries section of the Conventions guide supplied by `socketry-project`.
 
 Use the tasks linked by the project's private `bake/` package to bump the workspace version:
 
