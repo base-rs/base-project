@@ -2,6 +2,8 @@
 
 Use these conventions for Rust repositories in the Socketry organization. A project's local `.agents/` files and package-specific documentation can add requirements for that repository.
 
+Choose the simplest structure that makes the behavior, state, and responsibilities easy to follow. Use this principle to guide tradeoffs when applying these conventions.
+
 ## Repository and package boundaries
 
 - Use a separate repository when packages need independent versions, release notes, or tags.
@@ -33,7 +35,7 @@ Before introducing a new semantic, layout, or naming pattern, check how related 
 
 ## Construction and operations
 
-Keep `new` and `Default` limited to establishing supplied state, creating simple owned values, and cheap normalization. Name substantive work explicitly with operations such as `load`, `parse`, `discover`, `prepare`, `start`, or `install`. A `load(path)` operation can read a file and delegate to `parse`; a prepared update can expose `apply` and `restore`. Choose phases that give callers a useful boundary, and return `Result` for expected failures.
+Keep `new` and `Default` limited to establishing supplied state, creating simple owned values, and cheap normalization. Name substantive work explicitly with operations such as `load`, `parse`, `discover`, `prepare`, `start`, or `install`. A `load(path)` operation can read a file and delegate to `parse`. Choose phases that give callers a useful boundary, and return `Result` for expected failures.
 
 Keep derived values with the type that owns their inputs. Choose explicit preparation or computation on demand according to cost and lifecycle. Make filesystem access, dependency discovery, process execution, and runtime startup visible in the calling code.
 
@@ -76,15 +78,15 @@ Keep a cohesive sequence together when its shared state and ordering are easiest
 
 ## Effects and failure boundaries
 
-Validate inputs before changing externally visible state. When replacing generated files or directories, stage the new contents and use an explicit replacement operation. Keep cleanup near the effect it protects and state the scope restored on failure. Distinguish missing optional input from malformed or unreadable input, and report the relevant source or destination.
+Validate inputs before changing externally visible state. For generated files that can be recreated by rerunning the operation, prefer a direct `std::fs::write`. Keep cleanup near the effect it protects. Distinguish missing optional input from malformed or unreadable input, and report the relevant source or destination.
 
-Scale recovery to the operation and its documented guarantees. Prefer the smallest implementation that meets those guarantees, and use focused tests for observable success and failure behavior.
+Match error handling and recovery to the operation's actual requirements and keep them easy to follow. Use focused tests for observable success and failure behavior.
 
 ## Alignment across implementations
 
 When Rust and Ruby implement the same feature, align domain concepts, responsibilities, data flow, and observable behavior. Keep a short mapping of corresponding components, and document intentional differences caused by language semantics or package resolution. Use idiomatic Rust ownership, data types, modules, and functions to express the shared design.
 
-Keep portable formats and behavioral rules in a shared specification. Use common fixtures to verify the contract, including representative invalid input and failure boundaries. Compare bytes where exact preservation is part of the contract; use semantic comparisons where output formatting may vary.
+Keep portable formats and behavioral rules in a shared specification. Test each implementation against the agreed behavior. Use shared fixtures where they make a common format or rule easier to verify. Compare exact bytes when formatting or preservation is part of the contract; otherwise compare meaning.
 
 Before a substantial reorganization, record the current responsibilities, the problem with their boundaries, the proposed data flow, and an incremental implementation sequence in a package design guide. Label proposed APIs and behavior clearly, then update the guide as implementation progresses. Promote reusable lessons into shared conventions and keep domain-specific decisions in the package's context.
 
