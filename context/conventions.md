@@ -31,6 +31,36 @@ Keep public paths independent of redundant namespace layers such as `bake_agent_
 
 Before introducing a new semantic, layout, or naming pattern, check how related Socketry packages handle the same concern. Reuse an established pattern when it fits the package's purpose. When a package establishes or changes a pattern, document the rationale and intended usage in that package's context so later work has a reference. Preserve differences that reflect real domain needs; consistency should make related packages easier to understand, not flatten their APIs into one shape.
 
+## Construction and operations
+
+Keep `new` and `Default` limited to establishing supplied state, creating simple owned values, and cheap normalization. Name substantive work explicitly with operations such as `load`, `parse`, `discover`, `prepare`, `start`, or `install`. A `load(path)` operation can read a file and delegate to `parse`; a prepared update can expose `apply` and `restore`. Choose phases that give callers a useful boundary, and return `Result` for expected failures.
+
+Keep derived values with the type that owns their inputs. Choose explicit preparation or computation on demand according to cost and lifecycle. Make filesystem access, dependency discovery, process execution, and runtime startup visible in the calling code.
+
+## Responsibility and readable flow
+
+Give each domain rule and file format one owner. Generic parsing belongs in a shared document or protocol module; renderers and installers consume its interpretation. Use the parser library's syntax tree and source locations for syntax it already supports. Keep provider metadata, installation ownership, and command presentation as separate concerns.
+
+Keep task adapters small: translate arguments, call a library operation, and format the result. Put the workflow in the library so programmatic callers and commands use the same behavior.
+
+Make coordinating functions read as a sequence of domain operations. Separate setup, validation, transformation, and effects with blank lines. Give intermediate values meaningful names, expand dense expressions, and extract helpers around cohesive responsibilities. Keep helpers private until callers need the contract. Use structs for related state, modules for related operations, and traits for capabilities that concrete consumers need.
+
+Comments should explain ordering constraints, ownership, and the reasons behind decisions. Keep the normal flow visible alongside the failure handling needed to understand its guarantees.
+
+## Effects and failure boundaries
+
+Validate inputs before changing externally visible state. When replacing generated files or directories, stage the new contents and use an explicit replacement operation. Keep cleanup near the effect it protects and state the scope restored on failure. Distinguish missing optional input from malformed or unreadable input, and report the relevant source or destination.
+
+Scale recovery to the operation and its documented guarantees. Prefer the smallest implementation that meets those guarantees, and use focused tests for observable success and failure behavior.
+
+## Alignment across implementations
+
+When Rust and Ruby implement the same feature, align domain concepts, responsibilities, data flow, and observable behavior. Keep a short mapping of corresponding components, and document intentional differences caused by language semantics or package resolution. Use idiomatic Rust ownership, data types, modules, and functions to express the shared design.
+
+Keep portable formats and behavioral rules in a shared specification. Use common fixtures to verify the contract, including representative invalid input and failure boundaries. Compare bytes where exact preservation is part of the contract; use semantic comparisons where output formatting may vary.
+
+Before a substantial reorganization, record the current responsibilities, the problem with their boundaries, the proposed data flow, and an incremental implementation sequence in a package design guide. Label proposed APIs and behavior clearly, then update the guide as implementation progresses. Promote reusable lessons into shared conventions and keep domain-specific decisions in the package's context.
+
 ## Source and documentation
 
 - Keep authored repository-root Markdown files to lowercase `readme.md`, `license.md`, and `releases.md`.
