@@ -43,9 +43,36 @@ Give each domain rule and file format one owner. Generic parsing belongs in a sh
 
 Keep task adapters small: translate arguments, call a library operation, and format the result. Put the workflow in the library so programmatic callers and commands use the same behavior.
 
-Make coordinating functions read as a sequence of domain operations. Separate setup, validation, transformation, and effects with blank lines. Give intermediate values meaningful names, expand dense expressions, and extract helpers around cohesive responsibilities. Keep helpers private until callers need the contract. Use structs for related state, modules for related operations, and traits for capabilities that concrete consumers need.
+Make a multi-step function read as a sequence of domain operations. Introduce each logical phase with a short comment explaining the behavior it implements. Keep related calculations, assignments, and branches together under that comment, and separate phases with blank lines. A comment introduces the following code with a trailing colon.
 
-Comments should explain ordering constraints, ownership, and the reasons behind decisions. Keep the normal flow visible alongside the failure handling needed to understand its guarantees.
+Use documentation comments to explain the overall operation and its contract. Internal comments explain what each phase accomplishes, how it contributes to the operation, and any relevant ordering constraints, ownership, or reasoning. For example, this simplified method within a scheduler implementation groups timing measurements and accumulation:
+
+```rust
+/// Record the busy and idle time for this event loop iteration.
+fn record_load(&mut self, start: Instant) {
+    // Measure the elapsed time and the portion spent waiting for events:
+    let elapsed = start.elapsed();
+    let idle = self.selector.idle_duration();
+    let busy = elapsed - idle;
+
+    // Accumulate both durations for subsequent load reporting:
+    self.busy_time += busy;
+    self.idle_time += idle;
+}
+```
+
+A function implementing a single step can usually be explained by its documentation comment. For example, within a buffered body:
+
+```rust
+/// Append a chunk to the buffered body.
+fn write(&mut self, chunk: Vec<u8>) {
+    self.chunks.push(chunk);
+}
+```
+
+Choose comment granularity by behavior: explain the purpose of a group of statements in domain terms. Add an internal comment to a small function when it explains a detail beyond the function's contract. Keep the normal flow visible alongside the failure handling needed to understand its guarantees.
+
+Keep a cohesive sequence together when its shared state and ordering are easiest to follow locally. Extract helpers when they separate a distinct responsibility or name an independently meaningful operation. Give intermediate values meaningful names, expand dense expressions, and keep helpers private until callers need the contract. Use structs for related state, modules for related operations, and traits for capabilities that concrete consumers need.
 
 ## Effects and failure boundaries
 
