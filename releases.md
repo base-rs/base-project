@@ -1,5 +1,9 @@
 # Releases
 
+## Unreleased
+
+- Document architecture conventions for lightweight construction, explicit operations, readable control flow, and alignment with Ruby implementations.
+
 ## v0.3.13
 
 - Use named references between skills and agent context so guidance remains usable after installation.

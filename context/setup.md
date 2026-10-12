@@ -32,7 +32,7 @@ cargo add --manifest-path bake/Cargo.toml socketry-project
 
 In `bake/Cargo.toml`, prefix the version selected by Cargo with `>=` to make it an open-ended minimum. Keep that actual minimum in the manifest and the resolved version in `Cargo.lock`; the setup documentation does not need a copy of either version.
 
-The open-ended minimum requirement allows newer `socketry-project` releases. The workspace's root `Cargo.lock` records the selected version for the private `bake/` package, so update that lockfile deliberately when adopting a newer release. Follow the Dependency versions in documentation section of the Socketry Rust Conventions guide supplied by `socketry-project` when writing setup examples or compatibility requirements.
+The open-ended minimum requirement allows newer `socketry-project` releases. The workspace's root `Cargo.lock` records the selected version for the private `bake/` package, so update that lockfile deliberately when adopting a newer release. Follow the Dependency versions in documentation section of the Conventions guide supplied by `socketry-project` when writing setup examples or compatibility requirements.
 
 Run regeneration again to link its task registrations:
 
@@ -51,7 +51,7 @@ The `socketry-project` dependency makes the shared tasks available to the privat
 
 ## Agent context
 
-Follow the Agent Context section in the project's root `readme.md` to install and discover shared context and skills. Follow the Source and documentation section of the Socketry Rust Conventions guide supplied by `socketry-project` for where to keep package guidance and project-only instructions. The `bake-agent-context` guide documents installer behavior and options.
+Follow the Agent Context section in the project's root `readme.md` to install and discover shared context and skills. Follow the Source and documentation section of the Conventions guide supplied by `socketry-project` for where to keep package guidance and project-only instructions. The `bake-agent-context` guide documents installer behavior and options.
 
 ## Set up GitHub
 
