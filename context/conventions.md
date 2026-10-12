@@ -39,6 +39,16 @@ Keep `new` and `Default` limited to establishing supplied state, creating simple
 
 Keep derived values with the type that owns their inputs. Choose explicit preparation or computation on demand according to cost and lifecycle. Make filesystem access, dependency discovery, process execution, and runtime startup visible in the calling code.
 
+## Inputs and API contracts
+
+Use direct function parameters for required inputs. Introduce options or configuration types when they clarify a real set of choices for callers.
+
+Work directly with the expected data structure. Supply simple defaults for absent optional values, and keep any necessary shape validation at the parsing boundary. Accessors should expose the stored value, and defaults should represent expected absence. Keep malformed data distinguishable from missing input.
+
+Keep predicates focused on the question they answer. For extensible metadata, recognize the values the consumer understands and use the format's defined fallback for unfamiliar values. This lets existing consumers continue processing data when providers introduce new types.
+
+Use the format's canonical names. Add aliases and accepted forms when a concrete requirement calls for them, keeping the vocabulary small and consistent.
+
 ## Responsibility and readable flow
 
 Give each domain rule and file format one owner. Generic parsing belongs in a shared document or protocol module; renderers and installers consume its interpretation. Use the parser library's syntax tree and source locations for syntax it already supports. Keep provider metadata, installation ownership, and command presentation as separate concerns.
