@@ -39,6 +39,10 @@ Prepare a release with `cargo bake cargo:version:patch` (or `minor`, `major`, or
 
 See [releases.md](releases.md) for the full release history.
 
+### v0.4.0
+
+- Document comment formatting: avoid fixed-width hard wrapping and use Markdown where helpful.
+
 ### v0.3.13
 
 - Use named references between skills and agent context so guidance remains usable after installation.
@@ -47,11 +51,6 @@ See [releases.md](releases.md) for the full release history.
 
 - Document how to maintain dependency versions in installation examples and compatibility guidance, using manifests and lockfiles as authoritative sources.
 - Replace duplicated release-tooling version lists with guidance for checking the resolved provider's manifest.
-
-### v0.3.10
-
-- Add independent adversarial review guidance, with local iteration until all non-trivial issues are resolved before opening a pull request.
-- Clarify that the private Bake package shares the workspace's root lockfile.
 
 <!-- bake-readme:releases:end -->
 

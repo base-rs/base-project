@@ -7,4 +7,4 @@ publish = false
 [dependencies]
 bake = "0.19.0"
 bake-markdown = "0.3.0"
-socketry-project = { path = "..", version = "0.3.13" }
+socketry-project = { path = "..", version = "0.4.0" }
