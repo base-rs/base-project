@@ -1,6 +1,6 @@
 # Releases
 
-## Unreleased
+## v0.4.0
 
 - Document comment formatting: avoid fixed-width hard wrapping and use Markdown where helpful.
 
