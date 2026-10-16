@@ -33,6 +33,8 @@ Before introducing a new semantic, layout, or naming pattern, check how related 
 
 ## Source and documentation
 
+- Do not hard wrap prose in source comments, including documentation comments, to a fixed column width. Keep each paragraph on one source line; preserve line breaks for lists, code examples, and other meaningful structure.
+- Use Markdown in comments where it helps communicate intent, including backticks for identifiers, lists, and fenced code examples.
 - Keep authored repository-root Markdown files to lowercase `readme.md`, `license.md`, and `releases.md`.
 - Start `license.md` with `# MIT License`.
 - Keep `readme.md` human-focused: explain the project, its motivation when useful, how to use it, recent releases, and how to contribute. Follow the `Readme Structure` guide supplied by `bake-readme`.

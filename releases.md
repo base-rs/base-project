@@ -1,5 +1,9 @@
 # Releases
 
+## Unreleased
+
+- Document comment formatting: avoid fixed-width hard wrapping and use Markdown where helpful.
+
 ## v0.3.13
 
 - Use named references between skills and agent context so guidance remains usable after installation.
