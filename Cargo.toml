@@ -1,12 +1,12 @@
 [package]
-name = "socketry-project"
-version = "0.4.0"
+name = "core-project"
+version = "0.1.0"
 edition = "2024"
 license = "MIT"
-repository = "https://github.com/socketry/socketry-project-rust"
-description = "Shared project conventions and development tasks for Socketry Rust crates"
+repository = "https://github.com/core-rs/core-project"
+description = "Shared project conventions and development tasks for Core Rust crates"
 readme = "readme.md"
-include = ["src/**", "context/**", "Cargo.toml", "readme.md", "license.md", "releases.md"]
+include = ["src/**", "context/**", "Cargo.toml", "readme.md", "license.md", "releases.md", "releases/**"]
 
 [workspace]
 members = ["bake"]
@@ -19,17 +19,17 @@ manifest = "bake/Cargo.toml"
 reviewers = ["core-rs/maintainers"]
 
 [lib]
-name = "socketry_project"
+name = "core_project"
 
 [dependencies]
-bake = ">=0.19.0"
+bake = ">=0.20.0"
 bake-agent-context = { version = ">=0.3.2" }
-bake-cargo = { version = ">=0.4.0" }
+bake-cargo = { version = ">=0.5.0" }
 bake-license = { version = ">=0.1.1" }
 bake-markdown = { version = ">=0.3.0" }
 bake-readme = { version = ">=0.2.3" }
 bake-releases = { version = ">=0.2.1" }
-bake-test-rust = { version = ">=0.3.0" }
+bake-test = { version = ">=0.3.3" }
 
 [dev-dependencies]
 tempfile = "3"

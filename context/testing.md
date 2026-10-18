@@ -1,9 +1,9 @@
 ---
 type: skill
-description: Add or update tests in Socketry Rust projects, require 100% region coverage, and decide when downstream compatibility tests are useful. Use when asked to add tests or when behavior changes need regression coverage.
+description: Add or update tests in Core Rust projects, require 100% region coverage, and decide when downstream compatibility tests are useful. Use when asked to add tests or when behavior changes need regression coverage.
 ---
 
-# Testing Socketry Rust Projects
+# Testing Core Rust Projects
 
 Use this skill whenever a change adds or changes behavior that should be verified by tests.
 
@@ -32,4 +32,4 @@ Keep the shim small and local to the code under test. Do not build a broad fake 
 
 ## Use the shared testing tasks
 
-Use the shared Bake test tasks for local verification and CI. Consult the installed `bake-test-rust` context at `.agents/context/bake-test-rust/testing.md` for canonical workflow files, task setup and invocation, coverage options, and downstream test configuration.
+Use the shared Bake test tasks for local verification and CI. Consult the installed `bake-test` context at `.agents/context/bake-test/testing.md` for canonical workflow files, task setup and invocation, coverage options, and downstream test configuration.

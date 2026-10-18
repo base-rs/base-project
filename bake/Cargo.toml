@@ -1,10 +1,10 @@
 [package]
-name = "socketry-project-bake"
+name = "core-project-bake"
 version = "0.0.0"
 edition = "2024"
 publish = false
 
 [dependencies]
-bake = "0.19.0"
+bake = ">=0.20, <1"
 bake-markdown = "0.3.0"
-socketry-project = { path = "..", version = "0.4.0" }
+core-project = { path = "..", version = "0.1.0" }
