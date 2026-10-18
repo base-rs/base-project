@@ -1,5 +1,6 @@
 ---
-type: skill
+metadata:
+  type: skill
 description: Prepare commits and GitHub pull requests for Core Rust projects. Use when writing commit messages, creating or updating a pull request, or deciding what to include in the description and release notes.
 ---
 

@@ -6,5 +6,5 @@ publish = false
 
 [dependencies]
 bake = ">=0.20, <1"
-bake-markdown = "0.3.0"
-core-project = { path = "..", version = "0.1.0" }
+bake-markdown = "0.4.0"
+core-project = { path = "..", version = "0.2.0" }

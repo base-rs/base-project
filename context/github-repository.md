@@ -1,5 +1,6 @@
 ---
-type: skill
+metadata:
+  type: skill
 description: Create or maintain GitHub repository metadata, collaboration features, merge settings, and main-branch protections for Core projects. Use when setting up a new repository or auditing its existing settings.
 ---
 

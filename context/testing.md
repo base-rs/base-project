@@ -1,5 +1,6 @@
 ---
-type: skill
+metadata:
+  type: skill
 description: Add or update tests in Core Rust projects, require 100% region coverage, and decide when downstream compatibility tests are useful. Use when asked to add tests or when behavior changes need regression coverage.
 ---
 

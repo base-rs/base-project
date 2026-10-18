@@ -1,5 +1,6 @@
 ---
-type: skill
+metadata:
+  type: skill
 description: Bootstrap a Rust repository with Core layout, Bake tasks, agent context, tests, and workflows. Use for a new repository or initial setup.
 ---
 

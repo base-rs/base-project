@@ -41,6 +41,11 @@ Prepare a release with `cargo bake cargo:version:patch` (or `minor`, `major`, or
 
 See [releases.md](releases.md) for the full release history.
 
+### v0.2.0
+
+- Use `core-markdown` throughout the shared task stack.
+- Adopt the new agent-context installer and `metadata.type: skill` declarations. Discover guidance with `agent:context:list` and `agent:context:show`; the index and separate skill tasks are no longer available.
+
 ### v0.1.0
 
 - Publish as `core-project` in the `core-rs` organization, with version numbering restarted at `0.1.0`.
@@ -59,6 +64,6 @@ Please open an issue or pull request on [GitHub](https://github.com/core-rs/core
 
 ### Agent Context
 
-Run `cargo bake agent:context:install` to install shared context and skills. Read `.agents/context/index.md` to find relevant guides, follow `agents.md` if present, and apply skills under `.agents/skills/`. The installer preserves repository-owned `agents.md`; it does not create or regenerate that file.
+Run `cargo bake agent:context:install` to install shared context and skills. Use `cargo bake agent:context:list` and `cargo bake agent:context:show` to discover relevant guides, follow `agents.md` if present, and apply skills under `.agents/skills/`. The installer preserves repository-owned `agents.md`; it does not create or regenerate that file.
 
 [Agent Context guide]: https://github.com/core-rs/bake-agent-context/blob/main/context/agent-context.md

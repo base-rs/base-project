@@ -1,5 +1,6 @@
 ---
-type: skill
+metadata:
+  type: skill
 description: Prepare and follow through a reviewed release for Core Rust projects. Use when asked to bump a version, publish a crate, or check release readiness.
 ---
 
@@ -34,7 +35,7 @@ Use the exact `vVERSION` tag matching the shared Cargo version; do not add a per
 
 ## Publish through GitHub Actions
 
-Generate `.github/workflows/publish.yml` with `cargo bake cargo:setup:workflow`. The canonical template is maintained in [`bake-cargo-rust/src/publish.yml`](https://github.com/core-rs/bake-cargo/blob/main/src/publish.yml). Keep repository-specific changes limited to the configured branch and update this shared template when the standard workflow changes.
+Generate `.github/workflows/publish.yml` with `cargo bake cargo:setup:workflow`. The canonical template is maintained in [`bake-cargo/src/publish.yml`](https://github.com/core-rs/bake-cargo/blob/main/src/publish.yml). Keep repository-specific changes limited to the configured branch and update this shared template when the standard workflow changes.
 
 Require both `check` from `publish.yml` and `test-result` from `test.yml` in the branch ruleset. The aggregate test result must depend on every required test and coverage job, including matrix jobs, and run with `if: always()` so failures, cancellations, and skipped prerequisites cannot silently bypass it. Ordinary tests run only on pushes in `publish.yml`; pull requests rely on the required testing workflow.
 
