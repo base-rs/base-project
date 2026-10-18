@@ -1,7 +1,7 @@
 // Released under the MIT License.
 // Copyright, 2026, by Samuel Williams.
 
-//! Shared Socketry Rust project conventions and development tasks.
+//! Shared Core Rust project conventions and development tasks.
 //!
 //! Add this crate to a private `bake/` package to link the standard project
 //! tasks and their published agent context into a repository.
@@ -12,7 +12,7 @@ use bake_license as _;
 use bake_markdown as _;
 use bake_readme as _;
 use bake_releases as _;
-use bake_test_rust as _;
+use bake_test as _;
 
 mod markdown;
 

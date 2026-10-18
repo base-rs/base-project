@@ -1,11 +1,11 @@
 ---
 type: skill
-description: Prepare commits and GitHub pull requests for Socketry Rust projects. Use when writing commit messages, creating or updating a pull request, or deciding what to include in the description and release notes.
+description: Prepare commits and GitHub pull requests for Core Rust projects. Use when writing commit messages, creating or updating a pull request, or deciding what to include in the description and release notes.
 ---
 
 # Pull Requests
 
-Use these conventions when preparing commits or pull requests for Socketry Rust projects.
+Use these conventions when preparing commits or pull requests for Core Rust projects.
 
 ## Adversarial review
 
@@ -21,7 +21,7 @@ Scale the review to the change's complexity and risk. A small documentation chan
 ## Titles and commits
 
 - Pull request titles must use Markdown, be complete sentences, and end with a full stop.
-- Commit messages must use Markdown and end with a full stop.
+- Commit subjects must use Markdown and end with a full stop. Release commits also carry a `Release: vVERSION` Git trailer as specified by the releasing skill; its tag value has no trailing period.
 - The first line of a commit message must focus on what changed.
 - Most commit messages should be a single line.
 - Keep relevant context in the code itself, such as comments, rather than using the commit message as a side channel for important details.
