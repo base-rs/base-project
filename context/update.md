@@ -1,5 +1,6 @@
 ---
-type: skill
+metadata:
+  type: skill
 description: Audit and update an existing Rust repository against current Core conventions, shared Bake tasks, agent context, tests, and GitHub workflows. Use when asked to modernize or bring an existing crate up to date.
 ---
 
@@ -10,7 +11,7 @@ Use this skill to bring an existing crate repository up to the current Core base
 ## Read the project's guidance
 
 - Follow the repository's `agents.md` and project-specific instructions.
-- Run `cargo bake agent:context:install` when shared task dependencies change or installed context may be missing or stale. Read `.agents/context/index.md` and the skills that apply to the work.
+- Run `cargo bake agent:context:install` when shared task dependencies change or installed context may be missing or stale. Use `cargo bake agent:context:list` and `cargo bake agent:context:show` to discover guidance, then read the skills that apply to the work.
 - Consult the current `core-project` context and the installed `bake-*` context for task behavior. Prefer those task guides over copying their implementation details into this skill.
 
 ## Audit the current baseline
