@@ -155,6 +155,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4e7648175b45a9a48536d676f68d918270699102aa8dab5496df06904c914600"
 
 [[package]]
+name = "core-design"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4be086461795510f9e121dbafdb04bc8511ea26610ff185b7bba36d8747372b0"
+
+[[package]]
 name = "core-markdown"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -166,7 +172,7 @@ dependencies = [
 
 [[package]]
 name = "core-project"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "bake",
  "bake-agent-context",
@@ -176,6 +182,7 @@ dependencies = [
  "bake-readme",
  "bake-releases",
  "bake-test",
+ "core-design",
  "tempfile",
 ]
 

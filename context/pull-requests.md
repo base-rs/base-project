@@ -8,6 +8,12 @@ description: Prepare commits and GitHub pull requests for Core Rust projects. Us
 
 Use these conventions when preparing commits or pull requests for Core Rust projects.
 
+## Design requirements
+
+Use `core-design-review` to assess the changes against applicable `design/*.md` before opening or updating a pull request. Review requirements at both the base and proposed revisions, including added, changed, and removed documents. Use `core-design-author` when the work introduces, changes, or removes a user requirement; keep the document change with the implementation.
+
+Include deliberate requirement changes and unresolved design findings or missing validation evidence in the pull request description when relevant. Re-review affected requirements after subsequent changes. Design review complements the general adversarial review below; coordinate their findings and reuse applicable evidence.
+
 ## Adversarial review
 
 When sub-agents are available, use a sub-agent that did not implement the change for an independent adversarial review before opening the pull request. Keep the reviewer focused on inspecting the changes and reporting findings.

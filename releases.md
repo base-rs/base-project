@@ -2,6 +2,10 @@
 
 See [socketry-project release history](releases/socketry-project.md) for releases before the rename.
 
+## v0.3.0
+
+- Include `core-design` guidance and skills for project-specific `design/*.md` requirements, with discovery before implementation and review during pull request preparation.
+
 ## v0.2.0
 
 - Use `core-markdown` throughout the shared task stack.

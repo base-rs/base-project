@@ -11,6 +11,7 @@ Use this skill to bring an existing crate repository up to the current Core base
 ## Read the project's guidance
 
 - Follow the repository's `agents.md` and project-specific instructions.
+- Discover and read applicable `design/*.md` before choosing changes. Use `core-design-review` to assess the plan and resulting changes against those requirements.
 - Run `cargo bake agent:context:install` when shared task dependencies change or installed context may be missing or stale. Use `cargo bake agent:context:list` and `cargo bake agent:context:show` to discover guidance, then read the skills that apply to the work.
 - Consult the current `core-project` context and the installed `bake-*` context for task behavior. Prefer those task guides over copying their implementation details into this skill.
 
@@ -23,6 +24,7 @@ Check these areas:
 - **Cargo and Bake setup:** package and workspace boundaries, the private `bake/` package, the shared `core-project` dependency, and generated task links.
 - **Project files:** lowercase `readme.md`, `license.md`, and `releases.md`, with standard sections and generated content maintained by shared tasks.
 - **Agent context:** reusable package guidance in `context/`, project-only instructions and skills in `.agents/`, and current installed context and skills.
+- **Design requirements:** concrete project requirements in `design/*.md`, with scope and validation methods. Check that project instructions trigger discovery before implementation and that requirement changes accompany implementation changes. Use `core-design-author` to capture agreed requirements without inventing constraints merely to fill the directory.
 - **Testing:** tests for behavior, the 100% region-coverage expectation, and downstream testing where public compatibility makes it useful. Use the `core-project-testing` skill and the Rust Testing Tasks guide supplied by `bake-test` for the current policy and task details.
 - **GitHub workflows:** the standard test and publish workflows, plus external testing when downstream projects are configured. Use the GitHub repository skill for repository settings and the `core-project-releasing` skill for publishing workflow setup. Consult the Bake Cargo Readme for task behavior, workflow generation, and trusted-publishing details.
 

@@ -29,6 +29,8 @@ Then run `cargo bake --regenerate` again to link the dependency's tasks. The com
 
 This adds the standard Cargo, release, license, Readme, Markdown, agent-context, and testing tasks, including `test` and `test:external`. It also registers a version-bump hook that updates the project's standard files.
 
+It also includes `core-design`, which provides the `design/*.md` convention and the `core-design-author` and `core-design-review` skills. Capture specific project requirements, consider them before implementation, and validate them during pull request review. `core-design` contributes guidance and skills without adding Bake tasks.
+
 See the [repository setup skill](context/setup.md) for the minimal Cargo configuration and the [conventions](context/conventions.md) for repository layout, documentation, and code conventions. The [Rust Repository Layout](context/layout.md) explains source organization. The testing skill sets expectations and points to `bake-test` for task and workflow details.
 
 ## Releasing
@@ -40,6 +42,10 @@ Prepare a release with `cargo bake cargo:version:patch` (or `minor`, `major`, or
 <!-- bake-readme:releases:start -->
 
 See [releases.md](releases.md) for the full release history.
+
+### v0.3.0
+
+- Include `core-design` guidance and skills for project-specific `design/*.md` requirements, with discovery before implementation and review during pull request preparation.
 
 ### v0.2.0
 
@@ -65,5 +71,7 @@ Please open an issue or pull request on [GitHub](https://github.com/core-rs/core
 ### Agent Context
 
 Run `cargo bake agent:context:install` to install shared context and skills. Use `cargo bake agent:context:list` and `cargo bake agent:context:show` to discover relevant guides, follow `agents.md` if present, and apply skills under `.agents/skills/`. The installer preserves repository-owned `agents.md`; it does not create or regenerate that file.
+
+Before planning or changing behavior, discover and read applicable `design/*.md`. Use `core-design-review` to assess plans and changes, and `core-design-author` when user requirements are introduced, changed, or removed. Review design compliance before opening or updating a pull request.
 
 [Agent Context guide]: https://github.com/core-rs/bake-agent-context/blob/main/context/agent-context.md

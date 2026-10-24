@@ -56,6 +56,12 @@ The `core-project` dependency makes the shared tasks available to the private Ba
 
 Follow the Agent Context section in the project's root `readme.md` to install and discover shared context and skills. Follow the Source and documentation section of the Core Rust Conventions guide supplied by `core-project` for where to keep package guidance and project-only instructions. The `bake-agent-context` guide documents installer behavior and options.
 
+`core-project` also includes `core-design`, which supplies the project design requirement convention and the `core-design-author` and `core-design-review` skills. Add this instruction to the project's agent guidance so requirements are discovered before implementation:
+
+> Before planning or changing behavior, discover and read applicable `design/*.md`. Use `core-design-review` to assess plans and changes, and `core-design-author` when user requirements are introduced, changed, or removed. Review design compliance before opening or updating a pull request.
+
+Create design documents for concrete agreed requirements using `core-design-author`. Projects do not need placeholder requirements or an empty design directory.
+
 ## Set up GitHub
 
 Configure repository metadata, collaboration features, pull request defaults, and branch protection using the `core-project-github-repository` skill. Generate the Cargo workflow with `cargo:setup:workflow`; follow the `core-project-releasing` skill before applying rulesets, environment reviewers, or crates.io trusted publishing. It links to the Bake Cargo Readme for task-specific details.
