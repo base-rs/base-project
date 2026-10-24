@@ -10,6 +10,7 @@ project/
 ├── tests/
 ├── examples/
 ├── context/
+├── design/
 ├── bake/
 ├── .agents/
 ├── .github/
@@ -42,6 +43,8 @@ Cargo package metadata belongs in `Cargo.toml`. Follow the `core-project-releasi
 ## Root files
 
 The example project tree shows the standard root documentation files. See [Conventions](conventions.md#source-and-documentation) for their naming and content requirements.
+
+Keep current project-specific requirements in `design/*.md`. Follow `core-design-author` for document scope, validation, and lifecycle, and `core-design-review` to assess plans and changes against the requirements. Create this directory when the project has concrete requirements to capture.
 
 ## Test layout
 
