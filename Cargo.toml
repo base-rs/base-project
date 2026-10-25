@@ -1,6 +1,6 @@
 [package]
 name = "core-project"
-version = "0.3.0"
+version = "0.3.1"
 edition = "2024"
 license = "MIT"
 repository = "https://github.com/core-rs/core-project"
@@ -23,12 +23,12 @@ name = "core_project"
 
 [dependencies]
 bake = ">=0.20.0"
-bake-agent-context = { version = ">=0.4.0" }
-bake-cargo = { version = ">=0.5.1" }
-bake-license = { version = ">=0.2.3" }
-bake-markdown = { version = ">=0.4.0" }
-bake-readme = { version = ">=0.2.5" }
-bake-releases = { version = ">=0.3.5" }
+bake-agent-context = { version = ">=0.4.1" }
+bake-cargo = { version = ">=0.5.2" }
+bake-license = { version = ">=0.2.4" }
+bake-markdown = { version = ">=0.5.0" }
+bake-readme = { version = ">=0.2.6" }
+bake-releases = { version = ">=0.3.6" }
 bake-test = { version = ">=0.3.3" }
 core-design = { version = ">=0.1.0" }
 
