@@ -1,7 +1,7 @@
 // Released under the MIT License.
 // Copyright, 2026, by Samuel Williams.
 
-//! Shared Core Rust project conventions and development tasks.
+//! Shared Base Rust project conventions and development tasks.
 //!
 //! Add this crate to a private `bake/` package to link the standard project
 //! tasks and their published agent context into a repository.
@@ -19,8 +19,9 @@ mod markdown;
 /// Refresh the standard project files after a Cargo version bump.
 #[bake::task(name = "cargo:after_version_bump")]
 pub fn after_version_bump(context: &mut Context, version: String) -> Result<()> {
+    let tag = bake_cargo::release_tag(context, &version)?;
     context.call("license:update", &[])?;
-    context.call("releases:update", &[&format!("v{version}")])?;
+    context.call("releases:update", &[&tag])?;
     context.call("readme:update", &[])?;
     markdown::normalize(context)?;
     Ok(())
