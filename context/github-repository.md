@@ -1,16 +1,16 @@
 ---
 metadata:
   type: skill
-description: Create or maintain GitHub repository metadata, collaboration features, merge settings, and main-branch protections for Core projects. Use when setting up a new repository or auditing its existing settings.
+description: Create or maintain GitHub repository metadata, collaboration features, merge settings, and main-branch protections for Base projects. Use when setting up a new repository or auditing its existing settings.
 ---
 
 # GitHub Repository Setup
 
-Use these defaults when creating a Core repository. Preserve deliberate project-specific settings when maintaining an existing repository.
+Use these defaults when creating a Base repository. Preserve deliberate project-specific settings when maintaining an existing repository.
 
 ## Repository metadata
 
-- Use the canonical `core-rs` organization and project name.
+- Use the canonical `base-rs` organization and project name.
 - Write a short, accurate repository description.
 - Set the homepage to the documentation site when one exists.
 - Add focused topics for discovery; avoid repeating words already in the repository name.
@@ -38,7 +38,7 @@ Prefer organization or repository labels that already exist. Add labels only whe
 - Keep most commit messages to one line. Start with what changed.
 - Describe pull requests with a short summary followed by the problem and solution. Do not add a separate change type section or assign an issue type to a pull request.
 
-Use the `core-project-pull-requests` skill for the full title, commit, description, testing, and release note conventions.
+Use the `base-project-pull-requests` skill for the full title, commit, description, testing, and release note conventions.
 
 ## Branch protection
 
@@ -49,9 +49,9 @@ Protect `main` and require pull requests with at least one approval. Allow admin
 Use the GitHub CLI for repository changes. Inspect the target first and always use its full name in commands:
 
 ```sh
-gh repo view core-rs/PROJECT
+gh repo view base-rs/PROJECT
 ```
 
 When maintaining an existing repository, inspect its current settings and make the smallest change that achieves the intended result. Preserve project-specific settings. Do not rename, archive, transfer, or delete a repository without explicit approval, and do not disable issues, pull requests, or required checks without approval.
 
-The `core-project-releasing` skill describes the standard Cargo release process and links to Bake Cargo task documentation for branch rulesets, crates.io environment reviewers, and trusted publishing.
+The `base-project-releasing` skill describes the standard Cargo release process and links to Bake Cargo task documentation for branch rulesets, crates.io environment reviewers, and trusted publishing.

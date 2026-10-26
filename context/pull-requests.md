@@ -1,16 +1,16 @@
 ---
 metadata:
   type: skill
-description: Prepare commits and GitHub pull requests for Core Rust projects. Use when writing commit messages, creating or updating a pull request, or deciding what to include in the description and release notes.
+description: Prepare commits and GitHub pull requests for Base Rust projects. Use when writing commit messages, creating or updating a pull request, or deciding what to include in the description and release notes.
 ---
 
 # Pull Requests
 
-Use these conventions when preparing commits or pull requests for Core Rust projects.
+Use these conventions when preparing commits or pull requests for Base Rust projects.
 
 ## Design requirements
 
-Use `core-design-review` to assess the changes against applicable `design/*.md` before opening or updating a pull request. Review requirements at both the base and proposed revisions, including added, changed, and removed documents. Use `core-design-author` when the work introduces, changes, or removes a user requirement; keep the document change with the implementation.
+Use `base-design-review` to assess the changes against applicable `design/*.md` before opening or updating a pull request. Review requirements at both the base and proposed revisions, including added, changed, and removed documents. Use `base-design-author` when the work introduces, changes, or removes a user requirement; keep the document change with the implementation.
 
 Include deliberate requirement changes and unresolved design findings or missing validation evidence in the pull request description when relevant. Re-review affected requirements after subsequent changes. Design review complements the general adversarial review below; coordinate their findings and reuse applicable evidence.
 
@@ -28,7 +28,7 @@ Scale the review to the change's complexity and risk. A small documentation chan
 ## Titles and commits
 
 - Pull request titles must use Markdown, be complete sentences, and end with a full stop.
-- Commit subjects must use Markdown and end with a full stop. Release commits also carry a `Release: vVERSION` Git trailer as specified by the releasing skill; its tag value has no trailing period.
+- Commit subjects must use Markdown and end with a full stop. Release commits also carry a `Release: TAG` Git trailer as specified by the releasing skill; its tag value has no trailing period.
 - The first line of a commit message must focus on what changed.
 - Most commit messages should be a single line.
 - Keep relevant context in the code itself, such as comments, rather than using the commit message as a side channel for important details.

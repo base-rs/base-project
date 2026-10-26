@@ -21,7 +21,7 @@ project/
 
 ## Cargo package and source modules
 
-The root `Cargo.toml` defines the package and, when needed, the workspace. Put library code under `src/`, integration tests under `tests/`, and runnable examples under `examples/`. See [Conventions](conventions.md) for package and workspace boundaries, and the `core-project-setup` skill for the private Bake package.
+The root `Cargo.toml` defines the package and, when needed, the workspace. Put library code under `src/`, integration tests under `tests/`, and runnable examples under `examples/`. See [Conventions](conventions.md) for package and workspace boundaries, and the `base-project-setup` skill for the private Bake package.
 
 ## Source modules and files
 
@@ -36,15 +36,15 @@ src/
     └── inline_parser.rs
 ```
 
-Declare each source module in its parent. Keep module and directory names aligned; avoid `mod.rs` for new modules. Follow the [Core Rust naming conventions](conventions.md#source-naming) for Rust items and source files.
+Declare each source module in its parent. Keep module and directory names aligned; avoid `mod.rs` for new modules. Follow the [Base Rust naming conventions](conventions.md#source-naming) for Rust items and source files.
 
-Cargo package metadata belongs in `Cargo.toml`. Follow the `core-project-releasing` skill for the release workflow and consult Bake Cargo task documentation for package inclusion details.
+Cargo package metadata belongs in `Cargo.toml`. Follow the `base-project-releasing` skill for the release workflow and consult Bake Cargo task documentation for package inclusion details.
 
 ## Root files
 
 The example project tree shows the standard root documentation files. See [Conventions](conventions.md#source-and-documentation) for their naming and content requirements.
 
-Keep current project-specific requirements in `design/*.md`. Follow `core-design-author` for document scope, validation, and lifecycle, and `core-design-review` to assess plans and changes against the requirements. Create this directory when the project has concrete requirements to capture.
+Keep current project-specific requirements in `design/*.md`. Follow `base-design-author` for document scope, validation, and lifecycle, and `base-design-review` to assess plans and changes against the requirements. Create this directory when the project has concrete requirements to capture.
 
 ## Test layout
 
@@ -64,4 +64,4 @@ Declare child modules from `main.rs`; Cargo discovers the target root and the de
 
 Put runnable examples under `examples/`. Store project tool configuration in a clearly named configuration file or the relevant Cargo metadata; avoid adding a configuration directory without a concrete tool that uses it.
 
-Follow the `core-project-testing` skill for testing expectations and consult the installed `bake-test` context for task and workflow details. Use the `core-project-setup` skill for workflow setup.
+Follow the `base-project-testing` skill for testing expectations and consult the installed `bake-test` context for task and workflow details. Use the `base-project-setup` skill for workflow setup.

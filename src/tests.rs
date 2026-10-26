@@ -3,6 +3,16 @@
 
 use bake::{Arguments, Parameter, Registry, Result, Task, Value};
 
+fn project() -> tempfile::TempDir {
+    let directory = tempfile::tempdir().unwrap();
+    std::fs::write(
+        directory.path().join("Cargo.toml"),
+        "[package]\nname = 'fixture'\nversion = '0.1.0'\n",
+    )
+    .unwrap();
+    directory
+}
+
 #[derive(Default)]
 struct Calls {
     values: Vec<(String, Option<String>)>,
@@ -86,7 +96,7 @@ fn registry() -> Registry {
 
 #[test]
 fn exports_markdown_normalization_with_hyphen_markers() {
-    let directory = tempfile::tempdir().unwrap();
+    let directory = project();
     let path = directory.path().join("readme.md");
     std::fs::write(&path, "* first\n* second\n").unwrap();
 
@@ -103,7 +113,8 @@ fn exports_markdown_normalization_with_hyphen_markers() {
 #[test]
 fn refreshes_project_files_in_order_for_the_requested_version() {
     let registry = registry();
-    let mut context = registry.context(".");
+    let directory = project();
+    let mut context = registry.context(directory.path());
     context.insert(Calls::default());
 
     super::after_version_bump(&mut context, "0.3.0".to_owned()).unwrap();
@@ -122,7 +133,8 @@ fn refreshes_project_files_in_order_for_the_requested_version() {
 #[test]
 fn propagates_license_update_failure() {
     let registry = registry();
-    let mut context = registry.context(".");
+    let directory = project();
+    let mut context = registry.context(directory.path());
     context.insert(Calls {
         fail_at: Some("license:update".to_owned()),
         ..Calls::default()
@@ -140,7 +152,8 @@ fn propagates_license_update_failure() {
 #[test]
 fn propagates_release_update_failure() {
     let registry = registry();
-    let mut context = registry.context(".");
+    let directory = project();
+    let mut context = registry.context(directory.path());
     context.insert(Calls {
         fail_at: Some("releases:update".to_owned()),
         ..Calls::default()
@@ -161,7 +174,8 @@ fn propagates_release_update_failure() {
 #[test]
 fn propagates_readme_update_failure() {
     let registry = registry();
-    let mut context = registry.context(".");
+    let directory = project();
+    let mut context = registry.context(directory.path());
     context.insert(Calls {
         fail_at: Some("readme:update".to_owned()),
         ..Calls::default()
@@ -183,7 +197,8 @@ fn propagates_readme_update_failure() {
 #[test]
 fn propagates_markdown_normalization_failure() {
     let registry = registry();
-    let mut context = registry.context(".");
+    let directory = project();
+    let mut context = registry.context(directory.path());
     context.insert(Calls {
         fail_at: Some("markdown:normalize".to_owned()),
         ..Calls::default()
@@ -208,7 +223,7 @@ fn propagates_markdown_normalization_failure() {
 
 #[test]
 fn passes_standard_and_recursive_context_paths_to_the_normalizer() {
-    let directory = tempfile::tempdir().unwrap();
+    let directory = project();
     std::fs::create_dir_all(directory.path().join("context/nested")).unwrap();
     std::fs::write(directory.path().join("context/guide.md"), "Guide.\n").unwrap();
     std::fs::write(directory.path().join("context/nested/skill.md"), "Skill.\n").unwrap();
@@ -234,7 +249,8 @@ fn passes_standard_and_recursive_context_paths_to_the_normalizer() {
 #[test]
 fn rejects_a_missing_release_version_argument() {
     let registry = registry();
-    let mut context = registry.context(".");
+    let directory = project();
+    let mut context = registry.context(directory.path());
     context.insert(Calls::default());
 
     let error = update_releases(&mut context, &Arguments::default()).unwrap_err();
@@ -251,4 +267,32 @@ fn registers_the_project_version_bump_hook() {
             .tasks()
             .any(|task| task.name() == "cargo:after_version_bump")
     );
+}
+
+#[test]
+fn uses_the_configured_release_tag_for_notes() {
+    let directory = project();
+    std::fs::write(
+        directory.path().join("Cargo.toml"),
+        "[workspace.metadata.bake.release]\ntag-prefix = 'base-v'\n",
+    )
+    .unwrap();
+    let registry = registry();
+    let mut context = registry.context(directory.path());
+    context.insert(Calls::default());
+    super::after_version_bump(&mut context, "0.1.0".to_owned()).unwrap();
+    assert_eq!(
+        context.get::<Calls>().unwrap().values[1],
+        ("releases:update".to_owned(), Some("base-v0.1.0".to_owned()))
+    );
+}
+
+#[test]
+fn rejects_an_invalid_release_tag_before_updating_project_files() {
+    let directory = project();
+    let registry = registry();
+    let mut context = registry.context(directory.path());
+    context.insert(Calls::default());
+    assert!(super::after_version_bump(&mut context, "invalid".to_owned()).is_err());
+    assert!(context.get::<Calls>().unwrap().values.is_empty());
 }

@@ -1,10 +1,10 @@
 [package]
-name = "core-project"
-version = "0.3.1"
+name = "base-project"
+version = "0.1.0"
 edition = "2024"
 license = "MIT"
-repository = "https://github.com/core-rs/core-project"
-description = "Shared project conventions and development tasks for Core Rust crates"
+repository = "https://github.com/base-rs/base-project"
+description = "Shared project conventions and development tasks for Base Rust crates"
 readme = "readme.md"
 include = ["src/**", "context/**", "Cargo.toml", "readme.md", "license.md", "releases.md", "releases/**"]
 
@@ -16,21 +16,21 @@ resolver = "3"
 manifest = "bake/Cargo.toml"
 
 [workspace.metadata.bake.release]
-reviewers = ["core-rs/maintainers"]
+reviewers = ["base-rs/maintainers"]
 
 [lib]
-name = "core_project"
+name = "base_project"
 
 [dependencies]
 bake = ">=0.20.0"
-bake-agent-context = { version = ">=0.4.1" }
-bake-cargo = { version = ">=0.5.2" }
-bake-license = { version = ">=0.2.4" }
-bake-markdown = { version = ">=0.5.0" }
-bake-readme = { version = ">=0.2.6" }
-bake-releases = { version = ">=0.3.6" }
+bake-agent-context = { version = ">=0.4.2" }
+bake-cargo = { version = ">=0.5.4" }
+bake-license = { version = ">=0.2.5" }
+bake-markdown = { version = ">=0.6.0" }
+bake-readme = { version = ">=0.2.7" }
+bake-releases = { version = ">=0.3.7" }
 bake-test = { version = ">=0.3.3" }
-core-design = { version = ">=0.1.0" }
+base-design = { version = ">=0.1.0" }
 
 [dev-dependencies]
 tempfile = "3"

@@ -1,10 +1,10 @@
 [package]
-name = "core-project-bake"
+name = "base-project-bake"
 version = "0.0.0"
 edition = "2024"
 publish = false
 
 [dependencies]
 bake = ">=0.20, <1"
-bake-markdown = "0.5.0"
-core-project = { path = "..", version = "0.3.1" }
+bake-markdown = "0.6.0"
+base-project = { path = "..", version = ">=0.1.0" }
