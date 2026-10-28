@@ -40,7 +40,12 @@ Prepare a release with `cargo bake cargo:version:patch` (or `minor`, `major`, or
 ## Releases
 
 <!-- bake-readme:releases:start -->
+
 See [releases.md](releases.md) for the full release history.
+
+### v0.1.1
+
+- Document numeric limit naming and default constant conventions.
 
 ### v0.1.0
 
@@ -51,9 +56,11 @@ See [releases.md](releases.md) for the full release history.
 - Include `base-design` guidance and skills for project-specific `design/*.md` requirements, with discovery before implementation and review during pull request preparation.
 
 - Use `base-markdown` throughout the shared task stack.
+
 - Adopt the new agent-context installer and `metadata.type: skill` declarations. Discover guidance with `agent:context:list` and `agent:context:show`; the index and separate skill tasks are no longer available.
 
 - Require a `Release: vVERSION` Git trailer on the final release commit; version changes alone no longer trigger publication.
+
 <!-- bake-readme:releases:end -->
 
 ## See Also
