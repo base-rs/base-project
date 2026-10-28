@@ -1,5 +1,11 @@
 # Releases
 
+## Unreleased
+
+- Document borrowed inputs, meaningful types, standard traits, and public API documentation conventions.
+- Document ownership, macro, and constructor naming conventions.
+- Document conversion and getter naming, owned inputs, readable control flow, and lint exceptions.
+
 ## v0.1.1
 
 - Document numeric limit naming and default constant conventions.

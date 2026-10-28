@@ -25,6 +25,7 @@ Keep public paths independent of redundant namespace layers such as `bake_agent_
 - Treat acronyms and initialisms as single words in `UpperCamelCase`, following the [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/naming.html#casing-conforms-to-rfc-430-c-case): write `HtmlRenderer`, `HttpClient`, `UrlParser`, and `FileIo`. Use lowercase acronyms in `snake_case`, including filenames such as `html_renderer.rs`, `http_client.rs`, and `file_io.rs`. This keeps Base's Rust APIs consistent with the Rust ecosystem; names required by external APIs retain their original spelling.
 - Make public type and trait names fully descriptive; include the kind of thing being named instead of relying on the module path to supply it. For example, use `io_stream::BufferedStream` rather than `io_stream::Buffered`.
 - Prefer clear, consistent names. Avoid abbreviations unless they are an established domain initialism or required by an external API.
+- Follow Rust's conversion naming conventions: `as_` for inexpensive borrowed views, `to_` for conversions that perform work while preserving the source, and `into_` for consuming conversions. Name getters after their property, such as `name()` and `name_mut()`.
 - Prefer natural noun phrases that lead with the primary concept and become more specific from left to right. For numeric bounds, prefer the measured quantity followed by `_limit`, such as `size_limit`, `line_length_limit`, or `header_count_limit`. Add `minimum_` or `maximum_` when the direction needs to be explicit, as in `minimum_size_limit` or `maximum_size_limit`.
 - Keep constant names aligned with the corresponding settings, using the same semantic name and word order: `SIZE_LIMIT` for `size_limit`. Use the `DEFAULT_` prefix when it meaningfully distinguishes a default from another value in the same scope. For example, `DEFAULT_SIZE_LIMIT` supplies the initial configured size limit, while `ABSOLUTE_SIZE_LIMIT` names an enforced ceiling.
 - Give each primary public struct, enum, or trait its own source file, named after the item using lowercase `snake_case`. Keep small, closely related helper types alongside it when that makes the code easier to understand.
@@ -33,10 +34,26 @@ Keep public paths independent of redundant namespace layers such as `bake_agent_
 
 Before introducing a new semantic, layout, or naming pattern, check how related Base packages handle the same concern. Reuse an established pattern when it fits the package's purpose. When a package establishes or changes a pattern, document the rationale and intended usage in that package's context so later work has a reference. Preserve differences that reflect real domain needs; consistency should make related packages easier to understand, not flatten their APIs into one shape.
 
+## API design
+
+- Prefer unique ownership and borrowing for values with a clear owner. Use `Rc` or `Arc` when components need shared ownership with independent lifetimes; use `Arc` for shared ownership across threads.
+- Accept borrowed inputs such as `&str`, `&[T]`, and `&T` when ownership is unnecessary. When ownership is required, take inputs by value so callers control moving or cloning. Accept iterators when an operation only needs iteration.
+- Use named fields, newtypes, and enums to make domain meaning explicit. Named fields clarify otherwise ambiguous positional values, newtypes distinguish values with different meanings, and enums give meaningful names to choices.
+- Implement standard traits when their semantics fit the type, and derive implementations where possible. Provide `Default` for configuration types when there is a meaningful default configuration.
+- Express APIs through ordinary functions, types, and traits when they communicate the operation clearly. Use macros when their syntax or generated code provides a concrete benefit.
+- Use `new` for a type's primary general constructor and `with_...` for construction with particular settings. Prefer operation names such as `open`, `connect`, or `parse` when they better describe construction. Use `try_` when it meaningfully distinguishes a fallible alternative.
+
+## Implementation
+
+- Choose loops, iterator chains, and pattern matching for readability. Use `if let`, `let ... else`, or `match` when they express a condition and handle its value together.
+- Use `expect` with an explanation when an invariant justifies a panic.
+- Keep lint exceptions narrowly scoped and explain them with `reason`. Prefer `#[expect(...)]` when a diagnostic is expected so obsolete exceptions are reported.
+
 ## Source and documentation
 
 - Do not hard wrap prose in source comments, including documentation comments, to a fixed column width. Keep each paragraph on one source line; preserve line breaks for lists, code examples, and other meaningful structure.
 - Use Markdown in comments where it helps communicate intent, including backticks for identifiers, lists, and fenced code examples.
+- Document public API behavior and representative usage. Describe failure conditions, panic conditions, and safety obligations where applicable.
 - Keep authored repository-root Markdown files to lowercase `readme.md`, `license.md`, and `releases.md`.
 - Start `license.md` with `# MIT License`.
 - Keep `readme.md` human-focused: explain the project, its motivation when useful, how to use it, recent releases, and how to contribute. Follow the `Readme Structure` guide supplied by `bake-readme`.
