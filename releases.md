@@ -1,6 +1,6 @@
 # Releases
 
-## Unreleased
+## v0.1.2
 
 - Document borrowed inputs, meaningful types, standard traits, and public API documentation conventions.
 - Document ownership, macro, and constructor naming conventions.
