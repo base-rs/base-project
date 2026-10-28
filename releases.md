@@ -1,5 +1,9 @@
 # Releases
 
+## Unreleased
+
+- Document numeric limit naming and default constant conventions.
+
 ## v0.1.0
 
 - Publish as `base-project` in the `base-rs` organization, with package versions starting at 0.1.0.
@@ -9,6 +13,7 @@
 - Include `base-design` guidance and skills for project-specific `design/*.md` requirements, with discovery before implementation and review during pull request preparation.
 
 - Use `base-markdown` throughout the shared task stack.
+
 - Adopt the new agent-context installer and `metadata.type: skill` declarations. Discover guidance with `agent:context:list` and `agent:context:show`; the index and separate skill tasks are no longer available.
 
 - Require a `Release: vVERSION` Git trailer on the final release commit; version changes alone no longer trigger publication.
