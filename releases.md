@@ -1,6 +1,6 @@
 # Releases
 
-## Unreleased
+## v0.1.1
 
 - Document numeric limit naming and default constant conventions.
 
