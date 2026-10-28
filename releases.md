@@ -5,6 +5,7 @@
 - Document borrowed inputs, meaningful types, standard traits, and public API documentation conventions.
 - Document ownership, macro, and constructor naming conventions.
 - Document conversion and getter naming, owned inputs, readable control flow, and lint exceptions.
+- Establish Rust 1.87 as the default minimum supported version, with guidance for declaring, verifying, and updating it.
 
 ## v0.1.1
 

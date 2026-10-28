@@ -9,6 +9,10 @@ Use these conventions for Rust repositories in the `base-rs` organization. A pro
 - Name crates for their public purpose. Use the `base-` prefix where needed to identify Base packages in the flat crates.io namespace; keep Rust module paths semantic and concise.
 - Use Cargo's standard `src/`, `tests/`, and `examples/` directories. Use integration tests for public behavior across crate boundaries.
 
+## Rust version support
+
+Use Rust 1.87 as the default minimum supported version for Base crates. This baseline supports [precise lifetime captures in traits](https://blog.rust-lang.org/2025/05/15/Rust-1.87.0/). Declare the minimum in `Cargo.toml` using `rust-version`, and verify compatibility with both that version and current stable Rust. Use current stable Rust for everyday development. Raise the minimum deliberately when language features, compiler fixes, or dependencies justify it, recording the reason in release notes.
+
 ## Crate and module paths
 
 Treat the Cargo crate name as the root namespace. Do not repeat it with a same-named top-level module. Keep modules for meaningful domain concepts, and re-export the main public API from the crate root when deeper modules only organize its implementation. For example, callers can import the agent-context API from the root:
