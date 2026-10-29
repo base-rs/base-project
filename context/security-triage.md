@@ -46,7 +46,7 @@ If accepting:
 1. Accept the report in the GitHub advisory interface.
 2. Copy the reporter's original description verbatim into an advisory comment so the original report is preserved.
 3. Replace the description with a simplified version following the `advisory-template.md` resource installed with this skill. Match the tone and length of the project's published advisories. Keep the reporter's credit. Rewrite the title at the same time: one clear sentence naming the mechanism and the impact, matching the form of the project's published titles. Reporter titles are often long, hedged, or reference other identifiers, and the title is what appears in advisory feeds and release notes.
-4. Request a CVE from GitHub immediately after accepting, so the identifier is available for release notes and the fix pull request. Fill in whatever fields the request requires, using provisional affected ranges that Phase 6 finalizes. The identifier can take a day or more to arrive, and the fix does not merge until it does.
+4. Request a CVE from GitHub immediately after accepting. Fill in whatever fields the request requires, using provisional affected ranges that Phase 6 finalizes. Assignment can take weeks, so it is not on the critical path: the fix merges and the release ships whether or not the CVE has arrived. Confirm the request registered on the advisory page, since the API gives no pending state.
 5. Set the credits using the types GitHub provides: the reporter as `reporter`, whoever authored the fix as `remediation_developer`, a maintainer who reviewed a reporter-authored fix as `remediation_reviewer`, and the maintainer coordinating the advisory as `coordinator`. GitHub keeps one type per login, so a person with two roles gets the higher-effort one: a reporter who also wrote the fix is credited as `remediation_developer`. Check the project's published advisories and follow their convention where it differs.
 6. Propose a severity. Draft a CVSS 3.1 vector with a one-line justification per metric, compare it with the project's published advisories of the same impact class, and discuss it with the user before setting it. Use the same vector as an earlier advisory with the same mechanism unless there is a reason to differ. As a reference shape, unauthenticated, low-complexity resource exhaustion that is unbounded and held for the lifetime of a request scores Availability High, a bounded or transient cost scores Availability Low, and impacts that require an uncommon configuration or high attack complexity score lower.
 
@@ -65,9 +65,11 @@ If accepting:
 
   ```markdown
   - [CVE-YYYY-NNNNN](https://github.com/advisories/GHSA-xxxx-xxxx-xxxx) One-sentence description of the issue.
+
+  Use the CVE as the link text when it is assigned. Until then use the GHSA identifier, keeping the same link target.
   ```
 
-  Do not merge until the CVE is assigned. Merging to `main` is public, so the entry must carry the final identifier from the start. The advisory link resolves only after the advisory is published.
+  Do not wait for the CVE to merge. When it arrives later, update the link text in a follow-up changelog commit on the main branch and on each release branch that carries the entry. The advisory link resolves only after the advisory is published.
 - Merging to a public branch discloses the fix. Keep the merge close to the releases that carry it, and if an embargo was agreed with other parties, do not merge until it ends.
 - Merge the fix into `main`.
 
@@ -93,5 +95,5 @@ Security fixes are often batched so each supported series gets one patch release
 
 - Before publishing, set the affected products on the advisory: the ecosystem (Rust for crates.io packages), the package name, and one row per release series with the affected range and the patched version, for example `>= 3.2.0, < 3.2.8` patched in `3.2.8`. Include every backported series. Mark unsupported older series as affected with no patched version when they are not fixed.
 - Confirm the patched versions are published to the registry and the release notes on each branch name them.
-- Confirm the CVE is assigned and that the description, credits, and severity are final.
+- Confirm the description, credits, and severity are final. Publish whether or not the CVE has been assigned; GitHub attaches it to the published advisory when it arrives.
 - Publish the advisory.
