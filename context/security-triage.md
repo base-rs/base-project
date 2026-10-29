@@ -46,7 +46,7 @@ If accepting:
 1. Accept the report in the GitHub advisory interface.
 2. Copy the reporter's original description verbatim into an advisory comment so the original report is preserved.
 3. Replace the description with a simplified version following the `advisory-template.md` resource installed with this skill. Match the tone and length of the project's published advisories. Keep the reporter's credit.
-4. Request a CVE from GitHub immediately after accepting, so the identifier is available for release notes and the fix pull request. Fill in whatever fields the request requires, using provisional affected ranges that Phase 6 finalizes. The identifier can take time to arrive; later phases tolerate that.
+4. Request a CVE from GitHub immediately after accepting, so the identifier is available for release notes and the fix pull request. Fill in whatever fields the request requires, using provisional affected ranges that Phase 6 finalizes. The identifier can take a day or more to arrive, and the fix does not merge until it does.
 5. Propose a severity. Draft a CVSS 3.1 vector with a one-line justification per metric, compare it with the project's published advisories of the same impact class, and discuss it with the user before setting it. Use the same vector as an earlier advisory with the same mechanism unless there is a reason to differ. As a reference shape, unauthenticated, low-complexity resource exhaustion that is unbounded and held for the lifetime of a request scores Availability High, a bounded or transient cost scores Availability Low, and impacts that require an uncommon configuration or high attack complexity score lower.
 
 ## Phase 3: Obtain or create the fix
@@ -66,7 +66,7 @@ If accepting:
   - [CVE-YYYY-NNNNN](https://github.com/advisories/GHSA-xxxx-xxxx-xxxx) One-sentence description of the issue.
   ```
 
-  Use the advisory link alone if the CVE has not been assigned yet, and fill in the CVE before release. The advisory link resolves only after the advisory is published.
+  Do not merge until the CVE is assigned. Merging to `main` is public, so the entry must carry the final identifier from the start. The advisory link resolves only after the advisory is published.
 - Merging to a public branch discloses the fix. Keep the merge close to the releases that carry it, and if an embargo was agreed with other parties, do not merge until it ends.
 - Merge the fix into `main`.
 
