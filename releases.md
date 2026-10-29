@@ -1,5 +1,9 @@
 # Releases
 
+## Unreleased
+
+- Add the `performance` skill describing how to measure, isolate, accept, and report performance optimizations.
+
 ## v0.1.2
 
 - Document borrowed inputs, meaningful types, standard traits, and public API documentation conventions.
