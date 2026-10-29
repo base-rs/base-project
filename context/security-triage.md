@@ -13,7 +13,7 @@ Use this procedure to take a security report through to fixed releases and a pub
 - Reports arrive as GitHub Security Advisories on the project repository. GitHub may create a temporary private fork for the fix. Often no fix exists yet and you write it.
 - Identify the remote that points at the canonical repository with `git remote -v`; its name varies between checkouts. Fetch it before relying on branch or tag state.
 - Determine the supported release series from the project's security policy. Identify the release branch for each supported series, or confirm that releases are cut from `main` only.
-- `gh api --paginate 'repos/<owner>/<repo>/security-advisories?state=triage'` lists reports awaiting a decision; omit the state filter or pass `published` to inspect earlier advisories and their descriptions. Check for duplicate reports of the same issue and handle them together, crediting every reporter.
+- `gh api --paginate 'repos/<owner>/<repo>/security-advisories?state=triage'` lists reports awaiting a decision; omit the state filter or pass `published` to inspect earlier advisories and their descriptions. Check for duplicate reports before working on any of them.
 - Nothing is pushed, merged, commented, or edited on GitHub unless the user asked for that step. Report findings in the conversation, including the commit SHAs reviewed, results per version, test counts, and anything not verified.
 
 ## Phase 1: Review the report
@@ -29,7 +29,7 @@ Use this procedure to take a security report through to fixed releases and a pub
 The same issue is often reported more than once, sometimes months apart. Search the open reports for the same component and mechanism before working on any of them.
 
 - Choose one report as the canonical advisory. Normally this is the earliest, because the first reporter found it first. Prefer a later report only when it is materially better, for example it comes with a working fix and tests or it describes the real scope accurately while the earlier one does not. Both timing and quality matter; say which you chose and why.
-- Close the others as duplicates with a short comment thanking the reporter and explaining that an earlier report covers the same issue and that they will be credited on the published advisory. Reporters cannot see each other.s private advisories, so do not link them.
+- Close the others as duplicates with a short comment thanking the reporter and explaining that an earlier report covers the same issue and that they will be credited on the published advisory. Reporters cannot see each other's private advisories, so do not link them.
 - Add every reporter to the credits of the canonical advisory. Carry over any reproduction, affected version, or impact detail from the duplicates that the canonical report lacks.
 - Handle the set as one issue from then on: one fix, one description, one CVE, one severity.
 
