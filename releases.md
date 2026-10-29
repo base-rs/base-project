@@ -1,5 +1,9 @@
 # Releases
 
+## Unreleased
+
+- Add the `security-triage` skill describing how to review, fix, accept or close, backport, and publish a GitHub Security Advisory.
+
 ## v0.1.2
 
 - Document borrowed inputs, meaningful types, standard traits, and public API documentation conventions.
