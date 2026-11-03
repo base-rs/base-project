@@ -42,7 +42,23 @@ Use the `base-project-pull-requests` skill for the full title, commit, descripti
 
 ## Branch protection
 
-Protect `main` and require pull requests with at least one approval. Allow administrators to bypass these rules for maintenance. Require the publishing workflow's `check` job and the testing workflow's stable `test-result` job. The latter succeeds only when all required test and coverage jobs succeed. Keep experimental or diagnostic jobs outside this gate.
+Protect `main` with a ruleset that requires pull requests, blocks force pushes, and requires the publishing workflow's `check` job and the testing workflow's stable `test-result` job. The latter succeeds only when all required test and coverage jobs succeed. Keep experimental or diagnostic jobs outside this gate.
+
+Require no approvals by default. Maintainers, meaning the organization's maintainers team or anyone with write access, and agents working under their accounts discuss and decide changes together, so a separate approval adds nothing. Maintainers merge their own pull requests once the required checks pass, without bypassing the rules. External contributors face a higher bar: only maintainers can merge, so a maintainer's merge is the sign-off.
+
+Keep the bypass list empty or limited to the admin role, restricted to pull request merges, as an emergency exception rather than the normal way to merge or release. If merges routinely need the bypass, fix the rules instead.
+
+Require one or more approvals when a separate reviewer adds real independence, for example when a project has many maintainers who work independently, maintainers from different organizations, or a policy that requires a second person to review each change.
+
+## Contributor workflows
+
+Require maintainer approval before running workflows for first-time contributors' fork pull requests (`first_time_contributors`). Keep a stricter existing policy that requires approval for all external contributors.
+
+## Releases
+
+Keep releases deliberate but simple. Restrict the `crates-io` environment to deployments from `main`, require the maintainers team as reviewers, and allow self-review so a maintainer approves their own release with one click rather than a bypass. GitHub's protected-branches environment option does not recognize branches protected only by rulesets, so name the release branch in a custom deployment branch policy.
+
+`cargo bake cargo:setup:github:apply` from Bake Cargo applies these branch, environment, and contributor settings; pass `--approvals N` to require approvals.
 
 ## Apply settings safely
 
