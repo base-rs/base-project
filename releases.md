@@ -1,6 +1,6 @@
 # Releases
 
-## Unreleased
+## v0.1.3
 
 - Require no pull request approvals by default, so maintainers merge their own pull requests once checks pass, and document when a project should still require approvals. Require fork pull request approval for first-time contributors, and restrict publishing to `main` with self-review allowed.
 - Add the `performance` skill describing how to measure, isolate, accept, and report performance optimizations.
