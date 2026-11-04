@@ -59,7 +59,7 @@ If you are not permitted to attach `perf` to a running process, launch the proce
 
 ## Record and report
 
-- Keep the project's performance records in a document such as `performance.md` at the project root or beside the benchmark, and link it from the readme. Commit each run's raw records and summaries in a results directory, as `base-project-benchmarks` describes, and link it from the record, so results can be compared later; keep large profiles out of the repository.
+- Keep the project's performance records in a document such as `performance.md` at the project root or beside the benchmark, and link it from the readme. Commit each measurement's raw records and summaries in a results directory, as `base-project-benchmarks` describes, and link it from the record, so results can be compared later; keep large profiles out of the repository.
 - Record every attempt, including rejected ones. For each, give the numbers and the reason it was rejected, so it is not tried again without new evidence. Record ideas found to be unsafe, together with the reason.
 - For each result, state the host, CPU model, kernel, toolchain, build profile and flags, CPU placement, workload, exact commands, frozen revisions, and number of rounds. Give medians with their ranges. Record a variant that is not a commit as its base revision and a committed patch.
 - In release notes and pull request descriptions, give before and after figures for the metric that actually moved, usually instructions per operation, with the workload and concurrency, and the reference implementation's figure where relevant. Do not claim a throughput gain that is within run-to-run variation.

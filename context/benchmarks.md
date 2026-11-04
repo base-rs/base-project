@@ -18,10 +18,10 @@ Use this skill for where benchmark code and results live and how they stay repro
 
 ## Harness code
 
-- Write new measurement code as targets of a benchmark package. Do not add Rust sources beside results to be built by hand. CI does not compile, lint, or test such sources, so they drift from the APIs they use, and their results stop being reproducible.
+- Write new measurement code as targets of a benchmark package, or as `benches/` targets for microbenchmarks. Do not add Rust sources beside results to be built by hand. CI does not compile, lint, or test such sources, so they drift from the APIs they use, and their results stop being reproducible.
 - Driver scripts that run binaries, interleave builds, and summarize results may stay as scripts, beside the benchmark (such as `run.py`) or with the results they produced. Pass binaries, revisions, and output paths as arguments or environment variables rather than writing host-specific paths into them.
 - Make every duration, count, and rate a parameter, with defaults for real measurements, so that tests can run each workload briefly. Benchmark packages fall under the project's coverage requirement like any other package; test every workload with small parameters, following `base-project-testing`.
-- Print one machine-readable record per run, such as a JSON object, that repeats every parameter alongside per-operation figures and process CPU time.
+- Print one machine-readable record per process, such as a JSON object, that repeats every parameter alongside per-operation figures and process CPU time.
 - Fail on invalid arguments and on a failed run. Never report a partial run as a measurement.
 
 ## Diagnostic builds
@@ -31,7 +31,7 @@ Use this skill for where benchmark code and results live and how they stay repro
 
 ## Results
 
-- Commit each run's results in a directory beside the benchmark, `benchmarks/<name>/results/<topic>/`. When a run spans several benchmarks, use the benchmark for the change's main subject and link to the results from the others' documents. Existing results in other layouts stay where they are.
+- Commit each measurement's results in a directory beside the benchmark, `benchmarks/<name>/results/<topic>/`. When a measurement spans several benchmarks, use the benchmark for the change's main subject and link to the results from the others' documents. Existing results in other layouts stay where they are.
 - Give each results directory a `readme.md` that states what the results check, the details that `base-project-performance` requires for each result, each file and what produced it, the outcome, every metric outside its budget with its numbers, and what was not measured. Link it from the project's performance record.
-- Keep the raw records (JSON Lines works well) and the driver scripts exactly as run, and generate summaries from the raw records. Copy numbers into readmes and pull requests from the generated summaries; never transcribe them from terminal output. Keep raw records small enough to review and diff, and leave large profiles and traces out of the repository.
+- Keep the raw records (JSON Lines works well), the driver scripts, and any patch that defines a variant exactly as run, and generate summaries from the raw records. Copy numbers into readmes and pull requests from the generated summaries; never transcribe them from terminal output. Keep raw records small enough to review and diff, and leave large profiles and traces out of the repository.
 - Past results document what ran at the time, including package and binary names, and any sources that were built by hand. Do not rewrite them when the harness changes later; point from them to the harness that replaces them instead.
