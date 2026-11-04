@@ -43,6 +43,11 @@ Prepare a release with `cargo bake cargo:version:patch` (or `minor`, `major`, or
 
 See [releases.md](releases.md) for the full release history.
 
+### v0.1.5
+
+- Require giving the maintainers team access to a repository before running `cargo:setup:github:apply`, since GitHub silently drops environment reviewers without access, and show how to verify the `crates-io` environment's reviewers afterwards.
+- Require Bake Cargo 0.6.1, whose `cargo:setup:github:apply` fails when a reviewer team cannot access the repository and verifies the saved environment reviewers.
+
 ### v0.1.4
 
 - Include `base-security` guidance and skills for `security/` audit and advisory records, and enable private vulnerability reporting in the GitHub repository setup.
@@ -51,13 +56,6 @@ See [releases.md](releases.md) for the full release history.
 
 - Require no pull request approvals by default, so maintainers merge their own pull requests once checks pass, and document when a project should still require approvals. Require fork pull request approval for first-time contributors, and restrict publishing to `main` with self-review allowed.
 - Add the `performance` skill describing how to measure, isolate, accept, and report performance optimizations.
-
-### v0.1.2
-
-- Document borrowed inputs, meaningful types, standard traits, and public API documentation conventions.
-- Document ownership, macro, and constructor naming conventions.
-- Document conversion and getter naming, owned inputs, readable control flow, and lint exceptions.
-- Establish Rust 1.87 as the default minimum supported version, with guidance for declaring, verifying, and updating it.
 
 <!-- bake-readme:releases:end -->
 
