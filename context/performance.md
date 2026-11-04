@@ -6,7 +6,7 @@ description: Measure, isolate, and land performance optimizations in Base Rust p
 
 # Performance Optimization
 
-Use this skill when a change aims to make a Base project faster or cheaper, or when you report performance numbers.
+Use this skill when a change aims to make a Base project faster or cheaper, or when you report performance numbers. Follow `base-project-benchmarks` for where benchmark code and committed results live.
 
 ## Set the goal and the comparison
 
