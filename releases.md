@@ -1,5 +1,9 @@
 # Releases
 
+## Unreleased
+
+- Include `base-security` guidance and skills for `security/` audit and advisory records, and enable private vulnerability reporting in the GitHub repository setup.
+
 ## v0.1.3
 
 - Require no pull request approvals by default, so maintainers merge their own pull requests once checks pass, and document when a project should still require approvals. Require fork pull request approval for first-time contributors, and restrict publishing to `main` with self-review allowed.

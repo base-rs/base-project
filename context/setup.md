@@ -62,6 +62,12 @@ Follow the Agent Context section in the project's root `readme.md` to install an
 
 Create design documents for concrete agreed requirements using `base-design-author`. Projects do not need placeholder requirements or an empty design directory.
 
+`base-project` also includes `base-security`, which supplies the `security/` audit and advisory record formats and the `base-security-audit` and `base-security-advisory` skills. Add this instruction to the project's agent guidance:
+
+> Use `base-security-audit` when reviewing code for security issues, and record each review in `security/audit-*.md`. Use `base-security-advisory` for vulnerability reports and for findings that may warrant an advisory. Before reporting a security finding, read the relevant `// SECURITY:` comments and `design/*.md`.
+
+Projects do not need an empty `security/` directory; the first audit creates it.
+
 ## Set up GitHub
 
 Configure repository metadata, collaboration features, pull request defaults, and branch protection using the `base-project-github-repository` skill. Generate the Cargo workflow with `cargo:setup:workflow`; follow the `base-project-releasing` skill before applying rulesets, environment reviewers, or crates.io trusted publishing. It links to the Bake Cargo Readme for task-specific details.
