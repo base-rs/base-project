@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Require giving the maintainers team access to a repository before running `cargo:setup:github:apply`, since GitHub silently drops environment reviewers without access, and show how to verify the `crates-io` environment's reviewers afterwards.
+- Require Bake Cargo 0.6.1, whose `cargo:setup:github:apply` fails when a reviewer team cannot access the repository and verifies the saved environment reviewers.
 
 ## v0.1.4
 
