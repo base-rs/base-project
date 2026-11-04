@@ -31,6 +31,14 @@ Filesystem error kinds and path resolution vary by operating system. Inject fail
 
 Keep the shim small and local to the code under test. Do not build a broad fake filesystem or add production abstractions solely to satisfy coverage. If many call sites need fault injection, reconsider the design and introduce a shared abstraction only when it also makes the production code clearer.
 
+## Excluding files from coverage
+
+Excluding a file from the coverage gate is a last resort, only for raw device, hardware, or platform calls that cannot run in CI, such as an OpenXR runtime, a window system's event loop, or audio hardware. Try constructed inputs, software drivers, or simulated devices first.
+
+- Keep logic out of excluded files. Move only the untestable calls into a dedicated file and keep it thin; decisions, state, and conversions stay in covered modules.
+- List each file in its package's `Cargo.toml` under `[[package.metadata.bake.test.coverage.exclude]]`, with a `reason` explaining why it cannot run in CI. Exclude files, not crates. Do not use `#[coverage(off)]`, which is unstable, or `cfg(coverage)`, which changes what is built.
+- Reviewers should push back on new entries and on excluded files that grow, and prefer changes that shrink the list.
+
 ## Use the shared testing tasks
 
 Use the shared Bake test tasks for local verification and CI. Consult the installed `bake-test` context at `.agents/context/bake-test/testing.md` for canonical workflow files, task setup and invocation, coverage options, and downstream test configuration.
