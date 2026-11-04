@@ -11,6 +11,7 @@ project/
 ├── examples/
 ├── context/
 ├── design/
+├── security/
 ├── bake/
 ├── .agents/
 ├── .github/
@@ -45,6 +46,8 @@ Cargo package metadata belongs in `Cargo.toml`. Follow the `base-project-releasi
 The example project tree shows the standard root documentation files. See [Conventions](conventions.md#source-and-documentation) for their naming and content requirements.
 
 Keep current project-specific requirements in `design/*.md`. Follow `base-design-author` for document scope, validation, and lifecycle, and `base-design-review` to assess plans and changes against the requirements. Create this directory when the project has concrete requirements to capture.
+
+Keep security audit records in `security/audit-*.md` and published advisory records in `security/advisory-*.md`. Follow `base-security-audit` and `base-security-advisory` for their formats. The first audit creates this directory.
 
 ## Test layout
 

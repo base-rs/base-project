@@ -145,6 +145,7 @@ dependencies = [
  "bake-releases",
  "bake-test",
  "base-design",
+ "base-security",
  "tempfile",
 ]
 
@@ -156,6 +157,12 @@ dependencies = [
  "bake-markdown",
  "base-project",
 ]
+
+[[package]]
+name = "base-security"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "629473564fad6da0ef53101cc5ec69b8db8d5181f3c5bdfb4c9fc1af8170f003"
 
 [[package]]
 name = "base64"

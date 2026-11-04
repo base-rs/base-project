@@ -25,6 +25,7 @@ Check these areas:
 - **Project files:** lowercase `readme.md`, `license.md`, and `releases.md`, with standard sections and generated content maintained by shared tasks.
 - **Agent context:** reusable package guidance in `context/`, project-only instructions and skills in `.agents/`, and current installed context and skills.
 - **Design requirements:** concrete project requirements in `design/*.md`, with scope and validation methods. Check that project instructions trigger discovery before implementation and that requirement changes accompany implementation changes. Use `base-design-author` to capture agreed requirements without inventing constraints merely to fill the directory.
+- **Security records:** audit and advisory records in `security/`, and agent guidance that triggers `base-security-audit` and `base-security-advisory`. Do not create records without performing an audit.
 - **Testing:** tests for behavior, the 100% region-coverage expectation, and downstream testing where public compatibility makes it useful. Use the `base-project-testing` skill and the Rust Testing Tasks guide supplied by `bake-test` for the current policy and task details.
 - **GitHub workflows:** the standard test and publish workflows, plus external testing when downstream projects are configured. Use the GitHub repository skill for repository settings and the `base-project-releasing` skill for publishing workflow setup. Consult the Bake Cargo Readme for task behavior, workflow generation, and trusted-publishing details.
 

@@ -29,6 +29,8 @@ This adds the standard Cargo, release, license, Readme, Markdown, agent-context,
 
 It also includes `base-design`, which provides the `design/*.md` convention and the `base-design-author` and `base-design-review` skills. Capture specific project requirements, consider them before implementation, and validate them during pull request review. `base-design` contributes guidance and skills without adding Bake tasks.
 
+It also includes `base-security`, which provides the `security/` audit and advisory record formats and the `base-security-audit` and `base-security-advisory` skills. Record which files were reviewed for security issues at which revision, so later audits review only what changed, and take vulnerabilities from private report to published advisory. Like `base-design`, it contributes guidance and skills without adding Bake tasks.
+
 See the [repository setup skill](context/setup.md) for the minimal Cargo configuration and the [conventions](context/conventions.md) for repository layout, documentation, and code conventions. The [Rust Repository Layout](context/layout.md) explains source organization. The testing skill sets expectations and points to `bake-test` for task and workflow details. The [performance skill](context/performance.md) describes how to measure optimizations, decide which to keep, and report their results.
 
 ## Releasing

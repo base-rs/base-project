@@ -18,7 +18,7 @@ Use these defaults when creating a Base repository. Preserve deliberate project-
 
 ## Collaboration features
 
-Enable Issues, Discussions, Pull Requests, Sponsorships, and repository preservation. Disable Projects and Wiki unless the project has a concrete use for them.
+Enable Issues, Discussions, Pull Requests, Sponsorships, and repository preservation. Disable Projects and Wiki unless the project has a concrete use for them. Enable private vulnerability reporting so reporters can submit vulnerabilities without opening public issues; `base-security-advisory` describes how reports are handled.
 
 Use GitHub issue types to classify issues consistently:
 
