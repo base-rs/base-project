@@ -26,7 +26,7 @@ Use this skill for where benchmark code and results live and how they stay repro
 
 ## Diagnostic builds
 
-- When a benchmark needs internal counts from a measured package, such as rescues, retries, or fallbacks, expose them through a non-default feature of that package, documented as unstable; `diagnostics` is a good name. Forward it through a feature of the same name on the benchmark package, and include the counts in each run's record when it is enabled.
+- When a benchmark needs internal counts from a measured package, such as rescues, retries, or fallbacks, expose them through a non-default feature of that package, documented as unstable; `diagnostics` is a good name. Forward it through a feature of the same name on the benchmark package, and include the counts in each record when it is enabled.
 - Build the diagnostic variant separately from the timed variant, and do not take timing from it, as `base-project-performance` requires for other tools that perturb timing.
 
 ## Results
