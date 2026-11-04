@@ -23,7 +23,7 @@ project/
 
 ## Cargo package and source modules
 
-The root `Cargo.toml` defines the package and, when needed, the workspace. Put library code under `src/`, integration tests under `tests/`, and runnable examples under `examples/`. See [Conventions](conventions.md) for package and workspace boundaries, and the `base-project-setup` skill for the private Bake package.
+The root `Cargo.toml` defines the package and, when needed, the workspace. Put library code under `src/`, integration tests under `tests/`, and runnable examples under `examples/`. Put benchmarks that need their own package under `benchmarks/<name>/`, named `<project>-benchmark-<name>`, following the `base-project-benchmarks` skill. See [Conventions](conventions.md) for package and workspace boundaries, and the `base-project-setup` skill for the private Bake package.
 
 ## Source modules and files
 
@@ -66,6 +66,6 @@ tests/
 
 Declare child modules from `main.rs`; Cargo discovers the target root and the declared modules organize the suite. Integration tests exercise the public crate API. See the [Cargo integration test layout](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#integration-tests).
 
-Put runnable examples under `examples/`. Put benchmarks in private packages under `benchmarks/<name>/`, named `<project>-benchmark-<name>`, following the `base-project-benchmarks` skill. Store project tool configuration in a clearly named configuration file or the relevant Cargo metadata; avoid adding a configuration directory without a concrete tool that uses it.
+Put runnable examples under `examples/`. Store project tool configuration in a clearly named configuration file or the relevant Cargo metadata; avoid adding a configuration directory without a concrete tool that uses it.
 
 Follow the `base-project-testing` skill for testing expectations and consult the installed `bake-test` context for task and workflow details. Use the `base-project-setup` skill for workflow setup.
