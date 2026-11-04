@@ -6,7 +6,7 @@ description: Measure, isolate, and land performance optimizations in Base Rust p
 
 # Performance Optimization
 
-Use this skill when a change aims to make a Base project faster or cheaper, or when you report performance numbers.
+Use this skill when a change aims to make a Base project faster or cheaper, or when you report performance numbers. Follow `base-project-benchmarks` for where benchmark packages, harnesses, and committed results live.
 
 ## Set the goal and the comparison
 
@@ -21,6 +21,7 @@ Use this skill when a change aims to make a Base project faster or cheaper, or w
 - Pin the server and the client to separate physical cores, so they never share a core through hyperthreading. Leave any hyperthread sibling of a measured core idle unless the workload deliberately uses it.
 - Build each variant from a frozen source tree and lockfile, into its own target directory. A new working-tree build is a new experiment, even when it uses the same command.
 - Keep diagnostic builds and runs separate from measurement runs. Allocation counters, `strace`, and similar tools perturb timing, so never take throughput or cycles from them.
+- When several people or agents share the benchmark host, hold an exclusive lock for each measured process, and do not build or run tests on the host while a measurement is running.
 
 ## Measure
 
@@ -32,7 +33,11 @@ Report per-operation figures, so that runs of different lengths can be compared:
 - **Voluntary and involuntary context switches per operation**, for both the client and the server. They show differences in how often each side sleeps and wakes.
 - **Throughput** in operations per second. It varies more than the other metrics.
 
+Compare a change against a recorded baseline revision, usually the head of the target branch, built with the same harness and flags. When the change modifies the harness, measure the baseline with the new harness too.
+
 Run the variants interleaved, A B C A B C and so on, rather than one block per variant, so drift affects all of them equally. Use at least 10 rounds, and report the median together with the minimum and maximum. Do not report a single run, or a mean without its spread. Run the baseline against itself to establish the noise floor before interpreting small cycle or throughput differences; identical builds can differ by several percent in throughput.
+
+Before running, decide the verdict rule for each metric, such as a percentage budget, or the baseline's minimum-to-maximum range for a noisy metric. If a metric passes its rule but its median moves substantially, report the move with its spread instead of only calling it noise. When the run checks a design budget, measure every item the design lists, and name any item that was not measured.
 
 If you are not permitted to attach `perf` to a running process, launch the process under `perf stat` or `perf record` instead.
 
@@ -54,8 +59,8 @@ If you are not permitted to attach `perf` to a running process, launch the proce
 
 ## Record and report
 
-- Keep the project's performance records in a document such as `performance.md` at the project root or beside the benchmark, and link it from the readme. Commit summaries and small raw samples beside it, so results can be compared later; keep large profiles out of the repository.
+- Keep the project's performance records in a document such as `performance.md` at the project root or beside the benchmark, and link it from the readme. Commit each measurement's raw records and summaries in a results directory, as `base-project-benchmarks` describes, and link it from the record, so results can be compared later; keep large profiles out of the repository.
 - Record every attempt, including rejected ones. For each, give the numbers and the reason it was rejected, so it is not tried again without new evidence. Record ideas found to be unsafe, together with the reason.
-- For each result, state the host, CPU model, kernel, toolchain, build profile and flags, CPU placement, workload, exact commands, frozen revisions, and number of rounds. Give medians with their ranges.
+- For each result, state the host, CPU model, kernel, toolchain, build profile and flags, CPU placement, workload, exact commands, frozen revisions, and number of rounds. Give medians with their ranges. Record a variant that is not a commit as its base revision and a committed patch.
 - In release notes and pull request descriptions, give before and after figures for the metric that actually moved, usually instructions per operation, with the workload and concurrency, and the reference implementation's figure where relevant. Do not claim a throughput gain that is within run-to-run variation.
 - Open one pull request per repository, following `base-project-pull-requests`. When a downstream record depends on unreleased upstream changes, add it in the pull request that updates those dependencies, so its evidence can be reproduced from the repository.

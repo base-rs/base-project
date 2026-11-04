@@ -9,6 +9,7 @@ project/
 │   └── lib.rs
 ├── tests/
 ├── examples/
+├── benchmarks/
 ├── context/
 ├── design/
 ├── security/
@@ -22,7 +23,7 @@ project/
 
 ## Cargo package and source modules
 
-The root `Cargo.toml` defines the package and, when needed, the workspace. Put library code under `src/`, integration tests under `tests/`, and runnable examples under `examples/`. See [Conventions](conventions.md) for package and workspace boundaries, and the `base-project-setup` skill for the private Bake package.
+The root `Cargo.toml` defines the package and, when needed, the workspace. Put library code under `src/`, integration tests under `tests/`, and runnable examples under `examples/`. Put benchmarks that need their own package under `benchmarks/<name>/`, named `<project>-benchmark-<name>`, following the `base-project-benchmarks` skill. See [Conventions](conventions.md) for package and workspace boundaries, and the `base-project-setup` skill for the private Bake package.
 
 ## Source modules and files
 
