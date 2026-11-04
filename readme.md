@@ -43,6 +43,10 @@ Prepare a release with `cargo bake cargo:version:patch` (or `minor`, `major`, or
 
 See [releases.md](releases.md) for the full release history.
 
+### v0.1.4
+
+- Include `base-security` guidance and skills for `security/` audit and advisory records, and enable private vulnerability reporting in the GitHub repository setup.
+
 ### v0.1.3
 
 - Require no pull request approvals by default, so maintainers merge their own pull requests once checks pass, and document when a project should still require approvals. Require fork pull request approval for first-time contributors, and restrict publishing to `main` with self-review allowed.
@@ -54,10 +58,6 @@ See [releases.md](releases.md) for the full release history.
 - Document ownership, macro, and constructor naming conventions.
 - Document conversion and getter naming, owned inputs, readable control flow, and lint exceptions.
 - Establish Rust 1.87 as the default minimum supported version, with guidance for declaring, verifying, and updating it.
-
-### v0.1.1
-
-- Document numeric limit naming and default constant conventions.
 
 <!-- bake-readme:releases:end -->
 

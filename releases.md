@@ -1,6 +1,6 @@
 # Releases
 
-## Unreleased
+## v0.1.4
 
 - Include `base-security` guidance and skills for `security/` audit and advisory records, and enable private vulnerability reporting in the GitHub repository setup.
 
