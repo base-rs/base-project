@@ -60,6 +60,20 @@ Keep releases deliberate but simple. Restrict the `crates-io` environment to dep
 
 `cargo bake cargo:setup:github:apply` from Bake Cargo applies these branch, environment, and contributor settings; pass `--approvals N` to require approvals.
 
+Give the maintainers team access to the repository, for example with the `maintain` role, **before** running `cargo:setup:github:apply`. GitHub silently drops environment reviewers who cannot access the repository: the request succeeds, but the `crates-io` environment is left with nobody able to approve a release. A new repository does not give the team access automatically. Grant it deliberately:
+
+```sh
+gh api --method PUT orgs/base-rs/teams/maintainers/repos/base-rs/PROJECT -f permission=maintain
+```
+
+After applying, verify that the environment lists the team as a required reviewer:
+
+```sh
+gh api repos/base-rs/PROJECT/environments/crates-io --jq '.protection_rules[] | select(.type == "required_reviewers") | .reviewers[] | "\(.type) \(.reviewer.slug // .reviewer.login)"'
+```
+
+The output should include `Team maintainers`. If it does not, grant the access and run `cargo:setup:github:apply` again.
+
 ## Apply settings safely
 
 Use the GitHub CLI for repository changes. Inspect the target first and always use its full name in commands:
