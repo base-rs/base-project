@@ -31,6 +31,7 @@ Prefer organization or repository labels that already exist. Add labels only whe
 ## Pull requests and commits
 
 - Disable merge commits; allow squash and rebase merging.
+- Build squash merge commits from the pull request title and description (`PR_TITLE` and `PR_BODY`), not from the concatenated commit messages, so the merged commit reads as the description was written and a release pull request keeps its `Release: TAG` trailer through review commits. `cargo:setup:github:apply` sets this.
 - Suggest updating pull request branches, allow auto-merge, and delete merged head branches automatically.
 - Require contributors to sign off on commits made through GitHub's web interface.
 - Allow comments on individual commits.
