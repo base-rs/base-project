@@ -108,9 +108,9 @@ dependencies = [
 
 [[package]]
 name = "bake-test"
-version = "0.3.3"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "91359fe9b1cff2bf6e45a35be927e601ec3ad24412ef70adaa2a90aac9fbe4bb"
+checksum = "02a9b131698824d0a8e0328e86b1c8d270b4644901a019ac46e4ad38fee005a8"
 dependencies = [
  "bake",
  "serde_json",
@@ -134,7 +134,7 @@ dependencies = [
 
 [[package]]
 name = "base-project"
-version = "0.1.5"
+version = "0.1.6"
 dependencies = [
  "bake",
  "bake-agent-context",

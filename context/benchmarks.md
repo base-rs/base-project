@@ -12,7 +12,7 @@ Use this skill for where benchmark code and results live and how they stay repro
 
 - A crate's `benches/` targets suit microbenchmarks run with `cargo bench` that need nothing beyond the crate and its development dependencies. Put a benchmark in its own package when it needs its own binaries, dependencies, or driver scripts, or measures several packages together.
 - Put such a package under `benchmarks/<name>/`, with `publish = false`, and list it in the workspace members. CI then builds, lints, and tests it with the rest of the workspace.
-- Name the package `<project>-benchmark-<name>`, where `<project>` is the workspace's root package name and `<name>` is the directory name. For example, `benchmarks/timers` in `base-scheduler` is `base-scheduler-benchmark-timers`. The package name then follows its directory, as other workspace packages do, and the benchmarks sort together.
+- Name the package `<project>-benchmark-<name>`, where `<project>` is the workspace's root package name and `<name>` is the directory name. For example, `benchmarks/timers` in `base-scheduler` is `base-scheduler-benchmark-timers`. The package name then follows its directory, and the benchmarks sort together.
 - Name the directory for the subject it measures, such as `timers` or `echo`, rather than for one experiment. Add a workload for the same subject to the existing package, as a mode of its binary or as another binary, rather than adding a package.
 - A benchmark depends on the packages it measures, never the reverse.
 
