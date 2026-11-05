@@ -45,6 +45,15 @@ These operations are Bake tasks. The supported task-provider requirements are de
 
 After merging, check the workflow result, published package versions, version tag, and GitHub Release. If a publish workflow is still waiting for environment approval, obtain that approval through the configured reviewer process.
 
+## Release artifacts
+
+Attach files other than crates, such as application packages, with Bake Cargo's release artifacts workflow (Bake Cargo 0.8.0 or later) rather than a workflow of the project's own. Generate it with `cargo bake cargo:setup:artifacts --environment NAME --secrets SECRET`, repeating `--secrets` as needed, and supply only executable `scripts/release-artifacts/build`, `sign`, and `verify` scripts; the workflow supplies the release checks. Follow the same rules when writing those scripts or reviewing any release workflow:
+
+- Build the immutable release commit by its SHA, checked to be on `main` with a matching `Release:` trailer and version, including for manual runs. Never build from a tag or branch name, which may name another commit by the time the job runs.
+- Keep signing secrets in a GitHub environment restricted to `main`, configured with `cargo bake cargo:setup:github:apply --environment NAME`. Give them to one step only, as `0600` files under `$RUNNER_TEMP` removed in an `if: always()` step, never to a build, where every build script and dependency could read them. Pass passwords to tools through files or environment variables, not command-line arguments.
+- Verify fail-closed: capture a tool's output before testing it (`output=$(tool ...)`, then `grep` the variable) so a failing tool fails the check, print why a check failed, and compare signing certificates with a digest committed to the repository.
+- Maintainers and their agents may approve their own deployments, so environment approval is not independent review. The protection rests on the protected `main` branch, the immutable release commit and tag, and verification.
+
 ## Set up publishing
 
 For a new repository, use `cargo bake cargo:setup:workflow` to generate the workflow. Put required environment reviewers in `Cargo.toml`, preview settings with `cargo bake cargo:setup:github:plan`, and apply them with `cargo bake cargo:setup:github:apply` after reviewing the plan.

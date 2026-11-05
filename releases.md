@@ -1,5 +1,10 @@
 # Releases
 
+## Unreleased
+
+- Describe release artifacts in the `base-project-releasing` skill: attach them with Bake Cargo's `cargo:setup:artifacts` workflow, build the immutable release commit checked to be on `main`, keep signing secrets in a protected environment and give them to one step as files, verify fail-closed, and rely on `main`, the immutable commit, and verification rather than self-approved deployments.
+- Protect release tags against updates as well as deletion in the GitHub repository guide, and protect signing environments like `crates-io`.
+
 ## v0.1.7
 
 - Limit the pull request description to one paragraph in the `base-project-pull-requests` skill, since it becomes the squash-merged commit message: what changed, why, and the linked issue. Detailed investigation and discussion go in the issue, or in pull request comments when there is no issue.
