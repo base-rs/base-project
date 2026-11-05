@@ -40,7 +40,7 @@ The description becomes the message of the squash-merged commit on `main`, as th
 
 Everything else goes elsewhere. The investigation, alternatives considered, reproduction steps, measurements, and discussion belong in the linked issue, or in pull request comments when there is no issue; add review findings and follow-up discussion as comments too, and edit the description only when it no longer summarizes the change. Implementation details belong in the code and its comments. Screenshots for visual changes go in a comment.
 
-Only a release pull request ends with a Git trailer (`Release: TAG`, written by the `cargo:release:*` tasks); do not end other descriptions with a `Key: value` line.
+A release pull request is the exception: the `cargo:release:*` tasks write its description as the release notes followed by the `Release: TAG` trailer, and that is what should merge. Do not end other descriptions with a `Key: value` line.
 
 Do not add a `Types of Changes` section. Issue types classify GitHub issues; do not assign an issue type to a pull request or include issue type metadata in its description. If a related issue needs classification, set the type on that issue.
 
