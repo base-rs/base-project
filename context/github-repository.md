@@ -59,7 +59,9 @@ Require maintainer approval before running workflows for first-time contributors
 
 Keep releases deliberate but simple. Restrict the `crates-io` environment to deployments from `main`, require the maintainers team as reviewers, and allow self-review so a maintainer approves their own release with one click rather than a bypass. GitHub's protected-branches environment option does not recognize branches protected only by rulesets, so name the release branch in a custom deployment branch policy.
 
-`cargo bake cargo:setup:github:apply` from Bake Cargo applies these branch, environment, and contributor settings; pass `--approvals N` to require approvals.
+Protect release tags with a ruleset that blocks deleting and updating them, with no bypass, so a tag always names the commit that was published and release artifacts can be built from it. Creation stays open because the publish workflow pushes the tag with its `GITHUB_TOKEN`. Removing a mistaken tag needs an administrator to disable the ruleset deliberately. Protect an environment holding signing secrets for release artifacts like `crates-io`.
+
+`cargo bake cargo:setup:github:apply` from Bake Cargo applies these branch, tag, environment, and contributor settings; pass `--approvals N` to require approvals, and `--environment NAME` to configure a signing environment.
 
 Give the maintainers team access to the repository, for example with the `maintain` role, **before** running `cargo:setup:github:apply`. GitHub silently drops environment reviewers who cannot access the repository: the request succeeds, but the `crates-io` environment is left with nobody able to approve a release. A new repository does not give the team access automatically. Grant it deliberately:
 
