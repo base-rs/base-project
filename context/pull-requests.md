@@ -36,17 +36,11 @@ Scale the review to the change's complexity and risk. A small documentation chan
 
 ## Pull request description
 
-Start with a brief summary, followed by a detailed description of the problem and solution. Include implementation details that help reviewers understand the change, link relevant issues when applicable, and include screenshots for visual changes.
+The description becomes the message of the squash-merged commit on `main`, as the GitHub repository guide configures. Write one paragraph: what changed, why, and a link to the issue when there is one. Never leave it empty; the merged commit would have only a title.
 
-Use this structure, replacing the guidance with project-specific content:
+Everything else goes elsewhere. The investigation, alternatives considered, reproduction steps, measurements, and discussion belong in the linked issue, or in pull request comments when there is no issue; add review findings and follow-up discussion as comments too, and edit the description only when it no longer summarizes the change. Implementation details belong in the code and its comments. Screenshots for visual changes go in a comment.
 
-```markdown
-Briefly summarize the change in 1–3 sentences.
-
-Describe the problem, context, and solution. Include implementation details
-that help reviewers understand the change. Link relevant issues if applicable.
-Include screenshots for visual changes.
-```
+Only a release pull request ends with a Git trailer (`Release: TAG`, written by the `cargo:release:*` tasks); do not end other descriptions with a `Key: value` line.
 
 Do not add a `Types of Changes` section. Issue types classify GitHub issues; do not assign an issue type to a pull request or include issue type metadata in its description. If a related issue needs classification, set the type on that issue.
 
