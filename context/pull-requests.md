@@ -36,18 +36,9 @@ Scale the review to the change's complexity and risk. A small documentation chan
 
 ## Pull request description
 
-The description becomes the message of the squash-merged commit on `main`, as the GitHub repository guide configures. Write it for someone reading the history later: a brief summary, then the problem and the solution, in a few short paragraphs. Never leave it empty; the merged commit would have only a title.
+The description becomes the message of the squash-merged commit on `main`, as the GitHub repository guide configures. Write one paragraph: what changed, why, and a link to the issue when there is one. Never leave it empty; the merged commit would have only a title.
 
-Keep the description brief and put the long-form material in the linked issue: the investigation, alternatives considered, reproduction steps, measurements, and discussion. An issue can be commented on and revised as understanding changes; a merged commit message cannot. Open or update the issue before the pull request when the change needs that context, and link it from the description. When there is no issue, add that material as comments on the pull request rather than expanding the description. Once the pull request is open, record review findings, measurements, and follow-up discussion in comments too; edit the description only when the summary of the change itself is no longer accurate. Implementation details belong in the code and its comments; mention them in the description only when a reviewer needs them to follow the change. Include screenshots for visual changes.
-
-Use this structure, replacing the guidance with project-specific content:
-
-```markdown
-Briefly summarize the change in 1–3 sentences.
-
-Describe the problem and the solution in a few short paragraphs. Link the
-issue that holds the detailed context. Include screenshots for visual changes.
-```
+Everything else goes elsewhere. The investigation, alternatives considered, reproduction steps, measurements, and discussion belong in the linked issue, or in pull request comments when there is no issue; add review findings and follow-up discussion as comments too, and edit the description only when it no longer summarizes the change. Implementation details belong in the code and its comments. Screenshots for visual changes go in a comment.
 
 Only a release pull request ends with a Git trailer (`Release: TAG`, written by the `cargo:release:*` tasks); do not end other descriptions with a `Key: value` line.
 
