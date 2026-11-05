@@ -36,17 +36,20 @@ Scale the review to the change's complexity and risk. A small documentation chan
 
 ## Pull request description
 
-Start with a brief summary, followed by a detailed description of the problem and solution. Include implementation details that help reviewers understand the change, link relevant issues when applicable, and include screenshots for visual changes.
+The description becomes the message of the squash-merged commit on `main`, as the GitHub repository guide configures. Write it for someone reading the history later: a brief summary, then the problem and the solution, in a few short paragraphs. Never leave it empty; the merged commit would have only a title.
+
+Keep the description brief and put the long-form material in the linked issue: the investigation, alternatives considered, reproduction steps, measurements, and discussion. An issue can be commented on and revised as understanding changes; a merged commit message cannot. Open or update the issue before the pull request when the change needs that context, and link it from the description. Implementation details belong in the code and its comments; mention them in the description only when a reviewer needs them to follow the change. Include screenshots for visual changes.
 
 Use this structure, replacing the guidance with project-specific content:
 
 ```markdown
 Briefly summarize the change in 1–3 sentences.
 
-Describe the problem, context, and solution. Include implementation details
-that help reviewers understand the change. Link relevant issues if applicable.
-Include screenshots for visual changes.
+Describe the problem and the solution in a few short paragraphs. Link the
+issue that holds the detailed context. Include screenshots for visual changes.
 ```
+
+Only a release pull request ends with a Git trailer (`Release: TAG`, written by the `cargo:release:*` tasks); do not end other descriptions with a `Key: value` line.
 
 Do not add a `Types of Changes` section. Issue types classify GitHub issues; do not assign an issue type to a pull request or include issue type metadata in its description. If a related issue needs classification, set the type on that issue.
 

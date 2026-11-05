@@ -37,7 +37,7 @@ Prefer organization or repository labels that already exist. Add labels only whe
 - Allow comments on individual commits.
 - Use Markdown, complete sentences, and a final period for pull request titles and commit messages.
 - Keep most commit messages to one line. Start with what changed.
-- Describe pull requests with a short summary followed by the problem and solution. Do not add a separate change type section or assign an issue type to a pull request.
+- Describe pull requests briefly with a short summary followed by the problem and solution; the description becomes the merged commit message. Keep detailed context in the linked issue. Do not add a separate change type section or assign an issue type to a pull request.
 
 Use the `base-project-pull-requests` skill for the full title, commit, description, testing, and release note conventions.
 
