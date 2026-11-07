@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Describe in the Package Organization guide how a foundation shared by several families, such as `base-message`, has no family, and record `base-message`'s scope.
 - Describe in the testing skill how to compile `context/` guide and readme examples as doctests under `cfg(doctest)`, keeping guides out of the published API documentation.
 - Add a Package Organization context guide, which explains the `base-http*`, `base-web-*`, and `bake-*` crate families, how to choose a crate's family, and that family members never depend on their umbrella or framework crate, and link it from the setup skill where crates are named.
 - Collect benchmark packages with `base-benchmark` and the `bake-benchmark` tasks in the `base-project-benchmarks` skill, instead of new driver scripts, and build workload records with `base-benchmark`.
