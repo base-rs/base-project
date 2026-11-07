@@ -39,6 +39,18 @@ Excluding a file from the coverage gate is a last resort, only for raw device, h
 - List each file in its package's `Cargo.toml` under `[[package.metadata.bake.test.coverage.exclude]]`, with a `reason` explaining why it cannot run in CI. Exclude files, not crates. Do not use `#[coverage(off)]`, which is unstable, or `cfg(coverage)`, which changes what is built.
 - Reviewers should push back on new entries and on excluded files that grow, and prefer changes that shrink the list.
 
+## Test guide and readme examples
+
+Compile every Rust example in `context/` guides and `readme.md` as a doctest, so documentation cannot drift from the API. Include each file in the crate under `cfg(doctest)`, which tests its examples without adding the text to the published API documentation:
+
+```rust
+#[cfg(doctest)]
+#[doc = include_str!("../context/getting-started.md")]
+struct GettingStartedGuide;
+```
+
+Keep the crate-level documentation an overview with a short example, and link to the guides rather than including them with `#![doc = include_str!(...)]`. Include only files inside the package directory: a guide outside it is missing from the published package, so its doctests would fail there. Test such a guide from the package that contains it.
+
 ## Use the shared testing tasks
 
 Use the shared Bake test tasks for local verification and CI. Consult the installed `bake-test` context at `.agents/context/bake-test/testing.md` for canonical workflow files, task setup and invocation, coverage options, and downstream test configuration.
