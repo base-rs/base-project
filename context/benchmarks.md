@@ -10,7 +10,7 @@ Use this skill for where benchmark code and results live and how they stay repro
 
 ## Benchmark packages
 
-- A crate's `benches/` targets suit microbenchmarks run with `cargo bench` that need nothing beyond the crate and its development dependencies. Put a benchmark in its own package when it needs its own binaries, dependencies, or driver scripts, or measures several packages together.
+- A crate's `benches/` targets suit microbenchmarks run with `cargo bench` that need nothing beyond the crate and its development dependencies. Put a benchmark in its own package when it needs its own binaries or dependencies, or measures several packages together.
 - Put such a package under `benchmarks/<name>/`, with `publish = false`, and list it in the workspace members. CI then builds, lints, and tests it with the rest of the workspace.
 - Name the package `<project>-benchmark-<name>`, where `<project>` is the workspace's root package name and `<name>` is the directory name. For example, `benchmarks/timers` in `base-scheduler` is `base-scheduler-benchmark-timers`. The package name then follows its directory, and the benchmarks sort together.
 - Name the directory for the subject it measures, such as `timers` or `echo`, rather than for one experiment. Add a workload for the same subject to the existing package, as a mode of its binary or as another binary, rather than adding a package.
@@ -19,9 +19,10 @@ Use this skill for where benchmark code and results live and how they stay repro
 ## Harness code
 
 - Write new measurement code as targets of a benchmark package, or as `benches/` targets for microbenchmarks. Do not add Rust sources beside results to be built by hand. CI does not compile, lint, or test such sources, so they drift from the APIs they use, and their results stop being reproducible.
-- Driver scripts that run binaries, interleave builds, and summarize results may stay as scripts, beside the benchmark (such as `run.py`) or with the results they produced. Pass binaries, revisions, and output paths as arguments or environment variables rather than writing host-specific paths into them.
+- Collect benchmark packages with [`base-benchmark`](https://github.com/base-rs/base-benchmark), through the `benchmark:*` tasks of [`bake-benchmark`](https://github.com/base-rs/bake-benchmark) in the private `bake/` package or the `base-benchmark` command. Declare scenarios in the package's `[package.metadata.base-benchmark]`; preparing frozen builds and layout replicas, interleaving rounds, locking the host, and summarizing are the tool's job, not the project's. Its [usage guide](https://github.com/base-rs/base-benchmark/blob/main/context/usage.md) covers workloads, scenarios, and evidence classes. Do not add new driver scripts, in Python or otherwise, for what it does.
+- Workloads it cannot express yet, such as several cooperating processes, may keep an existing driver script until it can. Pass binaries, revisions, and output paths to such a script as arguments rather than writing host-specific paths into it, and port it once the tool supports the workload.
 - Make every duration, count, and rate a parameter, with defaults for real measurements, so that tests can run each workload briefly. Benchmark packages fall under the project's coverage requirement like any other package; test every workload with small parameters, following `base-project-testing`.
-- Print one machine-readable record per process, such as a JSON object, that repeats every parameter alongside per-operation figures and process CPU time.
+- Print one machine-readable record per process that repeats every parameter alongside the measured totals: a `base-benchmark` `ProcessRecord`, built with its `Interval`, from a dependency on `base-benchmark` with `default-features = false`, so the measured binary does not link the runner.
 - Fail on invalid arguments and on a failed run. Never report a partial run as a measurement.
 
 ## Diagnostic builds
@@ -33,5 +34,5 @@ Use this skill for where benchmark code and results live and how they stay repro
 
 - Commit each measurement's results in a directory beside the benchmark, `benchmarks/<name>/results/<topic>/`. When a measurement spans several benchmarks, use the benchmark for the change's main subject and link to the results from the others' documents. Existing results in other layouts stay where they are.
 - Give each results directory a `readme.md` that states what the results check, the details that `base-project-performance` requires for each result, each file and what produced it, the outcome, every metric outside its budget with its numbers, and what was not measured. Link it from the project's performance record.
-- Keep the raw records (JSON Lines works well), the driver scripts, and any patch that defines a variant exactly as run, and generate summaries from the raw records. Copy numbers into readmes and pull requests from the generated summaries; never transcribe them from terminal output. Keep raw records small enough to review and diff, and leave large profiles and traces out of the repository.
+- Keep the raw records, such as a campaign's `metadata.json`, `samples.jsonl`, and `summary.json`, any driver script, and any patch that defines a variant exactly as run, and generate summaries from the raw records. Copy numbers into readmes and pull requests from the generated summaries; never transcribe them from terminal output. Keep raw records small enough to review and diff, and leave large profiles and traces out of the repository.
 - Past results document what ran at the time, including package and binary names, and any sources that were built by hand. Do not rewrite them when the harness changes later; point from them to the harness that replaces them instead.
