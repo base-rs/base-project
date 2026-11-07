@@ -12,7 +12,7 @@ Use this skill to bootstrap a new Rust repository or add its initial shared Base
 
 Use a separate repository for a crate that needs its own version, release notes, or release tag. Use a Cargo workspace when its packages are meant to ship together at one version and share one `releases.md` and one release tag.
 
-Choose the crate name for its public purpose. Crates.io has a flat package namespace, so use a `base-` prefix when needed to identify a Base crate. The repository can use the `-rust` suffix to distinguish it from a related project in another language.
+Choose the crate name for its public purpose. Crates.io has a flat package namespace, so use a `base-` prefix when needed to identify a Base crate. Read the Package Organization context guide provided by `base-project` for the existing crate families and where a new crate belongs. The repository can use the `-rust` suffix to distinguish it from a related project in another language.
 
 Start with the standard Cargo layout and root files described in the Rust Repository Layout context guide provided by `base-project`. Keep the library's dependencies in the root package and development automation in a private `bake/` workspace member.
 
