@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add a Package Organization context guide, which explains the `base-http*`, `base-web-*`, and `bake-*` crate families, how to choose a crate's family, and that family members never depend on their umbrella or framework crate, and link it from the setup skill where crates are named.
 - Collect benchmark packages with `base-benchmark` and the `bake-benchmark` tasks in the `base-project-benchmarks` skill, instead of new driver scripts, and build workload records with `base-benchmark`.
 - Describe release artifacts in the `base-project-releasing` skill: attach them with Bake Cargo's `cargo:setup:artifacts` workflow, build the immutable release commit checked to be on `main`, keep signing secrets in a protected environment and give them to one step as files, verify fail-closed, and rely on `main`, the immutable commit, and verification rather than self-approved deployments.
 - Protect release tags against updates as well as deletion in the GitHub repository guide, and protect signing environments like `crates-io`.
