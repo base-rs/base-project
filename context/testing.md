@@ -1,7 +1,7 @@
 ---
 metadata:
   type: skill
-description: Add or update tests in Base Rust projects, require 100% region coverage, and decide when downstream compatibility tests are useful. Use when asked to add tests or when behavior changes need regression coverage.
+description: Add or update tests in Base Rust projects, require 100% region coverage, and decide when downstream compatibility tests are useful. Use when asked to add tests, when behavior changes need regression coverage, or when fixing a flaky or timing-dependent test.
 ---
 
 # Testing Base Rust Projects
@@ -30,6 +30,17 @@ Use real temporary directories for normal filesystem behavior. When an important
 Filesystem error kinds and path resolution vary by operating system. Inject failures for portable error-path tests; use platform-gated tests when the OS-specific behavior itself is what the test needs to verify.
 
 Keep the shim small and local to the code under test. Do not build a broad fake filesystem or add production abstractions solely to satisfy coverage. If many call sites need fault injection, reconsider the design and introduce a shared abstraction only when it also makes the production code clearer.
+
+## Wall-clock time
+
+Shared CI runners, such as those of GitHub Actions, are heavily oversubscribed, so any thread can stall for hundreds of milliseconds or more. A test that measures elapsed wall-clock time, or expects something to happen within a wall-clock bound, such as sleeping for 50 ms and expecting completion within 100 ms, will fail there intermittently. Widening the bound is not a fix.
+
+- Make such tests deterministic. Control the clock with an injectable clock or a manual time source that the test advances, or assert on ordering, events, counts, or causality rather than elapsed time. When production code has no clock abstraction, use a private `#[cfg(test)]` time source, as for I/O shims, rather than adding one solely for tests.
+- A lower bound that the code guarantees, such as a timer not firing before its deadline, is fine, because slowness cannot break it. Measure it with the same monotonic clock the code uses, such as `Instant` rather than `SystemTime`, from a reading taken before the code takes its own, and allow for coarse clocks and rounding to ticks.
+- An upper bound that encodes how fast the code should be is not fine. A generous watchdog that only turns a hang into a failure is: make it seconds long and never tune it to the expected speed.
+- Measure properties that genuinely need real time, such as latency or throughput, in a benchmark, following `base-project-benchmarks`, and judge the results by the verdict rules and on a host that meets the requirements in `base-project-performance`. CI builds and tests benchmark packages with small parameters, so nothing CI runs may assert a timing threshold.
+- A real-time test that must stay a test needs an opt-in that CI never turns on. Mark it `#[ignore = "…"]` with a reason saying how and where to run it, such as `cargo test -- --ignored NAME` on an idle host; the shared test and coverage tasks never run ignored tests. Put it in a file that coverage excludes, under `tests/`, `examples/`, or `benches/`, or named `tests.rs`, `*_tests.rs`, or `*-tests.rs`, since an ignored test elsewhere under `src/` leaves its own body uncovered. Do not gate it on a Cargo feature, which coverage enables with `--all-features`, or on an environment variable check that silently passes and leaves the guarded branch uncovered.
+- Code that only such benchmarks or opted-in tests reach still needs coverage from deterministic tests.
 
 ## Excluding files from coverage
 
