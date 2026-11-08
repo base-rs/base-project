@@ -48,6 +48,8 @@ Do not add a `Types of Changes` section. Issue types classify GitHub issues; do 
 
 Changes should include suitable test coverage. Aim for complete coverage of the behavior being changed or introduced. If a change directly affects downstream crates, add or update downstream integration coverage when useful.
 
+Before opening a pull request that adds or changes Rust files, commit them and run `cargo bake license:check`, which the test workflow's `license` job also runs. When it names files, run `cargo bake license:update`, regenerate any compile-fail snapshots whose line numbers moved (for trybuild, `TRYBUILD=overwrite cargo test --workspace`), and commit the result; the `license` job fails the pull request until then. When the check names files the pull request did not change, they are out of date on `main` or on the commit the branch started from, usually because a squash merge changed an author or date: rebase onto `main` if it already has the fix, and otherwise fix them with `license:update` in a separate pull request.
+
 Do not list passing test commands or verification steps in the pull request description unless they explain an unusual risk, limitation, or manual validation requirement.
 
 ## Release notes

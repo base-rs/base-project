@@ -296,3 +296,147 @@ fn rejects_an_invalid_release_tag_before_updating_project_files() {
     assert!(super::after_version_bump(&mut context, "invalid".to_owned()).is_err());
     assert!(context.get::<Calls>().unwrap().values.is_empty());
 }
+
+fn git(root: &std::path::Path, arguments: &[&str]) {
+    let output = std::process::Command::new("git")
+        .current_dir(root)
+        .args([
+            "-c",
+            "user.name=Fixture Author",
+            "-c",
+            "user.email=fixture@example.com",
+            "-c",
+            "commit.gpgsign=false",
+        ])
+        .args(arguments)
+        .env("GIT_AUTHOR_DATE", "2026-01-02T00:00:00+00:00")
+        .env("GIT_COMMITTER_DATE", "2026-01-02T00:00:00+00:00")
+        .output()
+        .unwrap();
+    assert!(
+        output.status.success(),
+        "git {arguments:?}: {}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+}
+
+/// A committed project whose compile-fail fixture has no license header, as base-web-content's had before its first release.
+fn repository() -> tempfile::TempDir {
+    let directory = project();
+    let root = directory.path();
+    std::fs::create_dir_all(root.join("src")).unwrap();
+    std::fs::write(root.join("src/lib.rs"), "pub fn example() {}\n").unwrap();
+    std::fs::create_dir_all(root.join("tests/ui")).unwrap();
+    std::fs::write(
+        root.join("tests/ui/fails.rs"),
+        "fn main() {\n    compile_error!(\"line 2\");\n}\n",
+    )
+    .unwrap();
+    std::fs::write(
+        root.join("releases.md"),
+        "# Releases\n\n## Unreleased\n\n- Add the example.\n",
+    )
+    .unwrap();
+    std::fs::write(root.join("readme.md"), "# Fixture\n\nAn example.\n").unwrap();
+    git(root, &["init", "--quiet"]);
+    git(root, &["add", "--all"]);
+    git(root, &["commit", "--quiet", "-m", "Add the fixture."]);
+    directory
+}
+
+#[test]
+fn lists_rust_files_with_uncommitted_changes() {
+    let directory = repository();
+    let root = directory.path();
+    let context = Registry::new().context(root);
+    assert!(super::changed_sources(&context).is_empty());
+
+    std::fs::write(root.join("tests/ui/fails.rs"), "// Header.\nfn main() {}\n").unwrap();
+    std::fs::write(root.join("releases.md"), "# Releases\n").unwrap();
+    assert_eq!(super::changed_sources(&context), ["tests/ui/fails.rs"]);
+
+    let outside = tempfile::tempdir().unwrap();
+    assert!(super::changed_sources(&Registry::new().context(outside.path())).is_empty());
+}
+
+#[test]
+fn warns_about_changed_sources_with_the_check_and_snapshot_fix() {
+    assert_eq!(
+        super::changed_sources_warning(&["src/lib.rs".to_owned(), "tests/ui/fails.rs".to_owned()]),
+        "warning: the release updated the license headers of 2 Rust file(s), which `cargo bake license:check` in pull request CI should have caught: src/lib.rs, tests/ui/fails.rs. Run the tests before merging the release, and update any compile-fail snapshots, such as trybuild `.stderr` files, whose line numbers moved."
+    );
+}
+
+#[test]
+fn reports_sources_changed_during_the_hook_and_continues() {
+    let directory = repository();
+    let registry = registry();
+    let mut context = registry.context(directory.path());
+    context.insert(Calls::default());
+    // The recording `license:update` does not write; change a source as the real one would.
+    std::fs::write(
+        directory.path().join("tests/ui/fails.rs"),
+        "// Released under the MIT License.\nfn main() {}\n",
+    )
+    .unwrap();
+
+    super::after_version_bump(&mut context, "0.3.0".to_owned()).unwrap();
+
+    assert_eq!(context.get::<Calls>().unwrap().values.len(), 4);
+}
+
+#[test]
+fn license_check_fails_before_a_release_would_add_headers_and_passes_after_it() {
+    let directory = repository();
+    let root = directory.path();
+    // A second author makes `license.md` use a Markdown line break, which normalization rewrites unless already normalized.
+    std::fs::write(
+        root.join("src/lib.rs"),
+        "pub fn example() -> u8 {\n    1\n}\n",
+    )
+    .unwrap();
+    git(
+        root,
+        &[
+            "-c",
+            "user.name=Second Author",
+            "commit",
+            "--quiet",
+            "--all",
+            "-m",
+            "Change the example.",
+        ],
+    );
+    let registry = Registry::discover().unwrap();
+    let mut context = registry.context(root);
+
+    // Pull request CI: the fixture without a header fails the check, which names it.
+    let error = context.call("license:check", &[]).unwrap_err().to_string();
+    assert!(error.contains("tests/ui/fails.rs"), "{error}");
+    assert!(error.contains("cargo bake license:update"), "{error}");
+
+    // The release hook applies the headers and normalizes the Markdown it wrote.
+    super::after_version_bump(&mut context, "0.1.0".to_owned()).unwrap();
+    assert!(
+        std::fs::read_to_string(root.join("tests/ui/fails.rs"))
+            .unwrap()
+            .starts_with(
+                "// Released under the MIT License.\n// Copyright, 2026, by Fixture Author.\n\n"
+            )
+    );
+    assert!(
+        std::fs::read_to_string(root.join("license.md"))
+            .unwrap()
+            .contains(
+                "Copyright, 2026, by Fixture Author.\\\nCopyright, 2026, by Second Author.\n"
+            )
+    );
+    git(root, &["commit", "--quiet", "--all", "-m", "Release."]);
+
+    // The released files pass the check, including the normalized `license.md`.
+    let result = context.call("license:check", &[]).unwrap();
+    assert_eq!(
+        result.as_str(),
+        Some("License file and Rust source headers are up to date")
+    );
+}
