@@ -31,6 +31,15 @@ Filesystem error kinds and path resolution vary by operating system. Inject fail
 
 Keep the shim small and local to the code under test. Do not build a broad fake filesystem or add production abstractions solely to satisfy coverage. If many call sites need fault injection, reconsider the design and introduce a shared abstraction only when it also makes the production code clearer.
 
+## Wall-clock time
+
+Shared CI runners, such as GitHub Actions', are heavily oversubscribed, so any thread can stall for hundreds of milliseconds. A test that measures elapsed wall-clock time, or expects something to happen within a wall-clock bound, such as sleeping for 50 ms and expecting completion within 100 ms, will fail there intermittently. Widening the bound is not a fix.
+
+- Make such tests deterministic. Control the clock with an injectable clock or a manual time source that the test advances, or assert on ordering, events, counts, or causality rather than elapsed time.
+- A lower bound that the code guarantees, such as a timer not firing before its deadline, is fine, because slowness cannot break it. An upper bound on elapsed real time is not.
+- Check properties that genuinely need real time, such as latency or throughput, in a benchmark, following `base-project-benchmarks`, or in a test that must be opted into explicitly, such as an `#[ignore]` test, so it does not run on shared CI by default. Document how and where to run it.
+- Code that only such benchmarks or opted-in tests reach still needs coverage from deterministic tests.
+
 ## Excluding files from coverage
 
 Excluding a file from the coverage gate is a last resort, only for raw device, hardware, or platform calls that cannot run in CI, such as an OpenXR runtime, a window system's event loop, or audio hardware. Try constructed inputs, software drivers, or simulated devices first.
