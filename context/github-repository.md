@@ -43,7 +43,7 @@ Use the `base-project-pull-requests` skill for the full title, commit, descripti
 
 ## Branch protection
 
-Protect `main` with a ruleset that requires pull requests, blocks force pushes, and requires the publishing workflow's `check` job and the testing workflow's stable `test-result` job. The latter succeeds only when all required test and coverage jobs succeed. Keep experimental or diagnostic jobs outside this gate.
+Protect `main` with a ruleset that requires pull requests, blocks force pushes, and requires the publishing workflow's `check` job and the testing workflow's stable `test-result` job. The latter succeeds only when every required job in its `needs` succeeds, such as the canonical workflow's test and coverage, minimum Rust version, and `license` jobs, so adding a job there requires it without changing the ruleset. Keep experimental or diagnostic jobs outside this gate.
 
 Require no approvals by default. Maintainers, meaning the organization's maintainers team or anyone with write access, and agents working under their accounts discuss and decide changes together, so a separate approval adds nothing. Maintainers merge their own pull requests once the required checks pass, without bypassing the rules. External contributors face a higher bar: only maintainers can merge, so a maintainer's merge is the sign-off.
 

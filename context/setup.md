@@ -50,7 +50,17 @@ Set release reviewers in the root `Cargo.toml`:
 reviewers = ["base-rs/maintainers"]
 ```
 
-The `base-project` dependency makes the shared tasks available to the private Bake binary. It also registers `cargo:after_version_bump`, which updates `license.md`, `releases.md`, and generated sections in `readme.md` after a version change, then normalizes those files and every Markdown file under the public `context/` directory. Locally installed `.agents/context/` files are not included. Keep task tooling out of unrelated published libraries. Consumer projects should depend on `base-project` from their private `bake/` package.
+The `base-project` dependency makes the shared tasks available to the private Bake binary. It also registers `cargo:after_version_bump`, which updates `license.md`, the license headers of every tracked Rust file, `releases.md`, and generated sections in `readme.md` after a version change, then normalizes those files and every Markdown file under the public `context/` directory. Locally installed `.agents/context/` files are not included. Keep task tooling out of unrelated published libraries. Consumer projects should depend on `base-project` from their private `bake/` package.
+
+## License headers
+
+Apply license headers to every source from the start, so that the first release does not change any. Commit the initial files, including test fixtures such as trybuild compile-fail cases under `tests/ui/`, then run:
+
+```sh
+cargo bake license:update
+```
+
+It writes `license.md` and adds the header to every tracked Rust file, with copyright lines from the Git history. Create compile-fail snapshots, such as trybuild `.stderr` files, after this, or regenerate them with `TRYBUILD=overwrite cargo test --workspace`, since the header moves their line numbers. Commit the result, and confirm with `cargo bake license:check`, which the standard test workflow's `license` job runs on every pull request. Later, commit each new file and run `license:update` before generating its snapshot, rather than writing the header by hand.
 
 ## Agent context
 
@@ -74,7 +84,7 @@ Configure repository metadata, collaboration features, pull request defaults, an
 
 ## Test workflows
 
-Use the `base-project-testing` skill for organization-wide testing expectations. Consult the installed `bake-test` context for canonical `test.yml` and optional `external.yml` workflows, task setup, coverage options, and downstream test configuration.
+Use the `base-project-testing` skill for organization-wide testing expectations. Consult the installed `bake-test` context for canonical `test.yml` and optional `external.yml` workflows, task setup, coverage options, and downstream test configuration. Keep the canonical workflow's `license` job, which runs `license:check` and is part of the required `test-result` aggregate.
 
 Use `cargo bake cargo:setup:workflow` to generate `.github/workflows/publish.yml` from the canonical Bake Cargo template. The workflow runs `cargo:release:detect` and `cargo:release` for release checks, then `cargo:publish:pending` and `cargo:release:publish` after merge through the configured `crates-io` environment. Follow the `base-project-releasing` skill for the standard workflow and task-provider requirements, and the `bake-test` context for test workflow and task details.
 

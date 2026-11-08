@@ -25,7 +25,7 @@ cargo add --manifest-path bake/Cargo.toml base-project
 
 In `bake/Cargo.toml`, prefix the version selected by Cargo with `>=` to make it an open-ended minimum. Then run `cargo bake --regenerate` again to link the dependency's tasks. The command keeps generated links separate from task source, so no manual import in `main.rs` is needed. Run `cargo bake --list` to see the available tasks.
 
-This adds the standard Cargo, release, license, Readme, Markdown, agent-context, and testing tasks, including `test` and `test:external`. It also registers a version-bump hook that updates the project's standard files.
+This adds the standard Cargo, release, license, Readme, Markdown, agent-context, and testing tasks, including `test` and `test:external`. It also registers a version-bump hook that updates the project's standard files and the license headers of its Rust files; `license:check` verifies in pull request CI that the hook would not change `license.md` or any Rust file's header.
 
 It also includes `base-design`, which provides the `design/*.md` convention and the `base-design-author` and `base-design-review` skills. Capture specific project requirements, consider them before implementation, and validate them during pull request review. `base-design` contributes guidance and skills without adding Bake tasks.
 

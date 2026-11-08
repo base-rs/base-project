@@ -18,6 +18,8 @@ Use this skill whenever a change adds or changes behavior that should be verifie
 
 Follow the repository's test layout guidance when choosing between unit and integration tests.
 
+Test fixtures are tracked Rust files and carry license headers like any other source. Commit a new compile-fail fixture and run `cargo bake license:update` before generating its snapshot: a header added later moves the line numbers in trybuild `.stderr` files and other compiler-output snapshots. The test workflow's `license` job, which runs `license:check`, fails a pull request whose fixture lacks the header.
+
 ## Difficult-to-trigger I/O failures
 
 Use real temporary directories for normal filesystem behavior. When an important error path depends on an operating-system failure that is difficult to trigger reliably, a private `#[cfg(test)]` shim can make that failure deterministic:
