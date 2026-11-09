@@ -1,6 +1,6 @@
 # Releases
 
-## Unreleased
+## v0.1.9
 
 - Require bake-agent-context 0.4.4, bake-cargo 0.9.2, bake-license 0.2.10, bake-markdown 0.6.1, bake-readme 0.3.1, bake-releases 0.3.8, bake-test 0.3.8, base-design 0.1.1, and base-security 0.2.1. The Bake task crates' releases declare Rust 1.88, and the edition 2024 resolver prefers versions compatible with a workspace's `rust-version`, so repositories declaring Rust 1.87 kept resolving their older releases; `base-design` and `base-security` declare 1.87 and are raised to match. A repository's `bake/` package already needed Rust 1.88 to build, since Bake 0.20 uses let-chains; the canonical `minimum-rust` job skips it as a private package. Keep the `bake` minimum at 0.20.0: in a Rust 1.87 workspace, requiring bake 0.20.2 makes the task crates' open `bake` requirements resolve bake 0.19.2 alongside it, and the task package fails to compile.
 
