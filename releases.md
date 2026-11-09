@@ -1,6 +1,6 @@
 # Releases
 
-## Unreleased
+## v0.1.10
 
 - Require bake-agent-context 0.4.5, bake-cargo 0.9.3, bake-license 0.2.11, bake-markdown 0.6.2, bake-readme 0.3.2, bake-releases 0.3.9, and bake-test 0.3.9, which require `bake` 0.20 or later instead of an open requirement. bake-cargo 0.9.3 also installs Bake launcher 0.20.2 in generated `publish.yml` and `release-artifacts.yml` workflows.
 - Require `bake` 0.20.2, the version the task binary already resolved. It was held at 0.20.0 because, in a workspace declaring Rust 1.87, the task crates' open `bake` requirements resolved `bake` 0.19.2 alongside 0.20.2 and the `bake/` package failed to compile; with every task crate now requiring `bake` 0.20 or later, Cargo resolves a single `bake` 0.20.2.
