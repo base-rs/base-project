@@ -1,5 +1,9 @@
 # Releases
 
+## Unreleased
+
+- Require bake-agent-context 0.4.4, bake-cargo 0.9.2, bake-license 0.2.10, bake-markdown 0.6.1, bake-readme 0.3.1, bake-releases 0.3.8, bake-test 0.3.8, base-design 0.1.1, and base-security 0.2.1. These releases declare their minimum Rust version, 1.88 for the Bake task crates and 1.87 for `base-design` and `base-security`, and the edition 2024 resolver prefers versions compatible with a workspace's `rust-version`, so repositories declaring Rust 1.87 kept resolving the older releases. Their `bake/` packages now need Rust 1.88 to build; the canonical `minimum-rust` job skips them as private packages. Keep the `bake` minimum at 0.20.0: in a Rust 1.87 workspace, requiring bake 0.20.2 makes the task crates' open `bake` requirements resolve bake 0.19.2 alongside it, and the task package fails to compile.
+
 ## v0.1.8
 
 - Report on standard error when the release hook's `license:update` changes a Rust file, naming the files, since a new header moves the line numbers in compile-fail snapshots such as trybuild `.stderr` files. The hook still applies headers.
