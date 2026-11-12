@@ -36,11 +36,11 @@ Scale the review to the change's complexity and risk. A small documentation chan
 
 ## Pull request description
 
-The description becomes the message of the squash-merged commit on `main`, as the GitHub repository guide configures. Write one paragraph: what changed, why, and a link to the issue when there is one. Never leave it empty; the merged commit would have only a title.
+The description becomes the message of the squash-merged commit on `main`, as the GitHub repository guide configures. Write one paragraph: what changed, why, and a link to the issue when there is one, followed by a `Breaking:` paragraph for a breaking change, as described under Release notes. Never leave it empty; the merged commit would have only a title.
 
 Everything else goes elsewhere. The investigation, alternatives considered, reproduction steps, measurements, and discussion belong in the linked issue, or in pull request comments when there is no issue; add review findings and follow-up discussion as comments too, and edit the description only when it no longer summarizes the change. Implementation details belong in the code and its comments. Screenshots for visual changes go in a comment.
 
-Only a release pull request ends with a Git trailer (`Release: TAG`, written by the `cargo:release:*` tasks); do not end other descriptions with a `Key: value` line.
+Only a release pull request ends with a Git trailer (`Release: TAG`, written by the `cargo:release:*` tasks); do not end other descriptions with a `Key: value` line, other than a `Breaking:` paragraph.
 
 Do not add a `Types of Changes` section. Issue types classify GitHub issues; do not assign an issue type to a pull request or include issue type metadata in its description. If a related issue needs classification, set the type on that issue.
 
@@ -54,7 +54,7 @@ Do not list passing test commands or verification steps in the pull request desc
 
 ## Release notes
 
-For user-visible changes, add a brief entry to `releases.md` in the format described by the [Bake Releases readme](https://github.com/base-rs/bake-releases/blob/main/readme.md).
+Do not edit `releases.md`: each version's notes are generated from Git history when the release is prepared, and the test workflow's `releases:check` fails a pull request that changes the file. The pull request title becomes this change's release note, so write it for users. If the change breaks compatibility, add a paragraph to the description beginning `Breaking:` that says what breaks and how to migrate. The installed `bake-releases` Release Notes guide describes how the notes are generated.
 
 ## Issue types
 

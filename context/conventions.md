@@ -11,7 +11,7 @@ Use these conventions for Rust repositories in the `base-rs` organization. A pro
 
 ## Rust version support
 
-Use Rust 1.87 as the default minimum supported version for Base crates. This baseline supports [precise lifetime captures in traits](https://blog.rust-lang.org/2025/05/15/Rust-1.87.0/). Declare the minimum in `Cargo.toml` using `rust-version`, and verify compatibility with both that version and current stable Rust. Use current stable Rust for everyday development. Raise the minimum deliberately when language features, compiler fixes, or dependencies justify it, recording the reason in release notes.
+Use Rust 1.87 as the default minimum supported version for Base crates. This baseline supports [precise lifetime captures in traits](https://blog.rust-lang.org/2025/05/15/Rust-1.87.0/). Declare the minimum in `Cargo.toml` using `rust-version`, and verify compatibility with both that version and current stable Rust. Use current stable Rust for everyday development. Raise the minimum deliberately when language features, compiler fixes, or dependencies justify it, giving the reason in the pull request title, which becomes the release note.
 
 ## Crate and module paths
 
@@ -80,7 +80,7 @@ Before introducing a new semantic, layout, or naming pattern, check how related 
 ## Development and releases
 
 - Keep development tasks in a private `bake/` package. Depend on `base-project` there so task tooling does not become a runtime dependency of the published library.
-- Use the `cargo:after_version_bump` hook registered by `base-project` to update `license.md`, the license headers of every tracked Rust file, `releases.md`, and the generated sections of `readme.md`, then normalize those files and all Markdown under the public `context/` directory. Applying headers at release guarantees that every published file carries the correct license.
+- Use the `cargo:after_version_bump` hook registered by `base-project` to update `license.md`, the license headers of every tracked Rust file, and the generated sections of `readme.md`, generate the new version's section of `releases.md` from Git history, then normalize those files and all Markdown under the public `context/` directory. Applying headers at release guarantees that every published file carries the correct license.
 - Give every tracked Rust file, including test fixtures such as trybuild compile-fail cases, the license header that `cargo bake license:update` writes, from the start: commit new files, run the task, and only then generate compile-fail snapshots. The `license` job of the standard test workflow runs `cargo bake license:check`, which fails a pull request whose commits leave a file without the header the release would write, so a release should not have to change sources.
 - Follow the `base-project-pull-requests` skill, including independent adversarial review and local iteration until all non-trivial issues are resolved.
 - Follow the `base-project-releasing` skill to prepare and publish a release. It links to Bake Cargo task documentation for workflow setup, trusted publishing, reviewers, and tag creation.

@@ -46,9 +46,28 @@ jobs:
       - name: Check license files and Rust source headers
         run: cargo bake --locked license:check
 
+  releases:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The check compares the commits under review with their base.
+          fetch-depth: 0
+      - uses: actions-rust-lang/setup-rust-toolchain@v2
+        with:
+          cache-shared-key: releases-bake-launcher-v1
+      - name: Install Bake launcher
+        run: cargo install bake --locked
+      - name: Reject hand edits to the generated release notes
+        env:
+          # Empty on pushes, which checks nothing.
+          BAKE_BASE: ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}
+        run: cargo bake --locked releases:check "$BAKE_BASE"
+
   test-result:
     if: always()
-    needs: [test, license]
+    needs: [test, license, releases]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

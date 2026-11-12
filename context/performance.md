@@ -1,7 +1,7 @@
 ---
 metadata:
   type: skill
-description: Measure, isolate, and land performance optimizations in Base Rust projects. Use when writing or running benchmarks, investigating a performance gap or regression against a reference implementation, profiling a hot path, deciding whether an optimization is worth keeping, or reporting performance results in records, release notes, and pull requests.
+description: Measure, isolate, and land performance optimizations in Base Rust projects. Use when writing or running benchmarks, investigating a performance gap or regression against a reference implementation, profiling a hot path, deciding whether an optimization is worth keeping, or reporting performance results in records and pull requests.
 ---
 
 # Performance Optimization
@@ -54,7 +54,7 @@ If you are not permitted to attach `perf` to a running process, launch the proce
 - Count a repeatable reduction in instructions as a real gain, even when throughput in a synthetic benchmark barely moves. Fewer instructions usually means lower CPU cost, and the saving applies to every caller.
 - Do not make ergonomics worse for a gain that does not materialize. A change that makes an API harder to use, or a contract harder to satisfy, needs a clear and repeatable gain in cycles or throughput, measured as above. Adding an API that is easy to use, such as a capacity hint, does not need that higher bar.
 - Prefer removing work, state, synchronization, and allocation over adding caches, fast paths, or special cases. Additional caching or specialized paths must justify their total complexity with repeatable gains, including the invariants that future changes must maintain.
-- Preserve observable behavior by default, such as ordering, cancellation, ownership, notification, and error reporting. If an optimization does change it, review it as a behavior change and document it in the release notes and the relevant `design/*.md`.
+- Preserve observable behavior by default, such as ordering, cancellation, ownership, notification, and error reporting. If an optimization does change it, review it as a behavior change and document it in the pull request title, which becomes the release note, and the relevant `design/*.md`.
 - A fast path must not leave the general path's equivalent branch unreachable. Remove the duplicate branch, so coverage stays complete without exclusions, and add tests for every invariant that the optimization introduces. Follow `base-project-testing`; tests for those invariants should fail rather than hang when the invariant breaks.
 
 ## Record and report
@@ -62,5 +62,5 @@ If you are not permitted to attach `perf` to a running process, launch the proce
 - Keep the project's performance records in a document such as `performance.md` at the project root or beside the benchmark, and link it from the readme. Commit each measurement's raw records and summaries in a results directory, as `base-project-benchmarks` describes, and link it from the record, so results can be compared later; keep large profiles out of the repository.
 - Record every attempt, including rejected ones. For each, give the numbers and the reason it was rejected, so it is not tried again without new evidence. Record ideas found to be unsafe, together with the reason.
 - For each result, state the host, CPU model, kernel, toolchain, build profile and flags, CPU placement, workload, exact commands, frozen revisions, and number of rounds. Give medians with their ranges. Record a variant that is not a commit as its base revision and a committed patch.
-- In release notes and pull request descriptions, give before and after figures for the metric that actually moved, usually instructions per operation, with the workload and concurrency, and the reference implementation's figure where relevant. Do not claim a throughput gain that is within run-to-run variation.
+- In pull request titles, which become release notes, and descriptions, give before and after figures for the metric that actually moved, usually instructions per operation, with the workload and concurrency, and the reference implementation's figure where relevant. Do not claim a throughput gain that is within run-to-run variation.
 - Open one pull request per repository, following `base-project-pull-requests`. When a downstream record depends on unreleased upstream changes, add it in the pull request that updates those dependencies, so its evidence can be reproduced from the repository.
