@@ -1,6 +1,6 @@
 # Releases
 
-## Unreleased
+## v0.1.11
 
 - Describe squash-only merging in the GitHub repository skill, and drop rebase merging from the releasing skill, which now refers to the GitHub repository skill for required checks.
 - Keep title, commit, and description conventions in the pull request skill rather than repeating them in the GitHub repository skill. The pull request skill now says that titles become squash commit subjects and commit subjects are complete sentences, refers to the testing skill's 100% region coverage, and links to the Bake Releases readme for the `releases.md` format, since `bake-releases` supplies no context guide.
