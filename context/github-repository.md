@@ -30,20 +30,17 @@ Prefer organization or repository labels that already exist. Add labels only whe
 
 ## Pull requests and commits
 
-- Disable merge commits; allow squash and rebase merging.
+- Allow squash merging only; disable merge commits and rebase merging, so each pull request lands on `main` as one commit carrying its title and description.
 - Build squash merge commits from the pull request title and description (`PR_TITLE` and `PR_BODY`), not from the concatenated commit messages, so the merged commit reads as the description was written and a release pull request keeps its `Release: TAG` trailer through review commits. `cargo:setup:github:apply` sets this.
 - Suggest updating pull request branches, allow auto-merge, and delete merged head branches automatically.
 - Require contributors to sign off on commits made through GitHub's web interface.
 - Allow comments on individual commits.
-- Use Markdown, complete sentences, and a final period for pull request titles and commit messages.
-- Keep most commit messages to one line. Start with what changed.
-- Describe pull requests in one paragraph: what changed, why, and the linked issue. The description becomes the merged commit message; detailed context goes in the issue, or in pull request comments when there is no issue. Do not add a separate change type section or assign an issue type to a pull request.
 
 Use the `base-project-pull-requests` skill for the full title, commit, description, testing, and release note conventions.
 
 ## Branch protection
 
-Protect `main` with a ruleset that requires pull requests, blocks force pushes, and requires the publishing workflow's `check` job and the testing workflow's stable `test-result` job. The latter succeeds only when every required job in its `needs` succeeds, such as the canonical workflow's test and coverage, minimum Rust version, and `license` jobs, so adding a job there requires it without changing the ruleset. Keep experimental or diagnostic jobs outside this gate.
+Protect `main` with a ruleset that requires pull requests, blocks force pushes, and requires the publishing workflow's `check` job and the testing workflow's stable `test-result` job. The latter runs with `if: always()` and succeeds only when every required job in its `needs` succeeds, including matrix jobs, such as the canonical workflow's test and coverage, minimum Rust version, and `license` jobs, so failed, cancelled, or skipped prerequisites cannot bypass it, and adding a job there requires it without changing the ruleset. Keep experimental or diagnostic jobs outside this gate.
 
 Require no approvals by default. Maintainers, meaning the organization's maintainers team or anyone with write access, and agents working under their accounts discuss and decide changes together, so a separate approval adds nothing. Maintainers merge their own pull requests once the required checks pass, without bypassing the rules. External contributors face a higher bar: only maintainers can merge, so a maintainer's merge is the sign-off.
 

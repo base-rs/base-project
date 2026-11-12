@@ -1,5 +1,10 @@
 # Releases
 
+## Unreleased
+
+- Describe squash-only merging in the GitHub repository skill, and drop rebase merging from the releasing skill, which now refers to the GitHub repository skill for required checks.
+- Keep title, commit, and description conventions in the pull request skill rather than repeating them in the GitHub repository skill. The pull request skill now says that titles become squash commit subjects and commit subjects are complete sentences, refers to the testing skill's 100% region coverage, and links to the Bake Releases readme for the `releases.md` format, since `bake-releases` supplies no context guide.
+
 ## v0.1.10
 
 - Require bake-agent-context 0.4.5, bake-cargo 0.9.3, bake-license 0.2.11, bake-markdown 0.6.2, bake-readme 0.3.2, bake-releases 0.3.9, and bake-test 0.3.9, which require `bake` 0.20 or later instead of an open requirement. bake-cargo 0.9.3 also installs Bake launcher 0.20.2 in generated `publish.yml` and `release-artifacts.yml` workflows.
