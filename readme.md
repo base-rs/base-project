@@ -43,6 +43,11 @@ Prepare a release with `cargo bake cargo:release:patch` (or `minor`, `major`, or
 
 See [releases.md](releases.md) for the full release history.
 
+### v0.1.11
+
+- Describe squash-only merging in the GitHub repository skill, and drop rebase merging from the releasing skill, which now refers to the GitHub repository skill for required checks.
+- Keep title, commit, and description conventions in the pull request skill rather than repeating them in the GitHub repository skill. The pull request skill now says that titles become squash commit subjects and commit subjects are complete sentences, refers to the testing skill's 100% region coverage, and links to the Bake Releases readme for the `releases.md` format, since `bake-releases` supplies no context guide.
+
 ### v0.1.10
 
 - Require bake-agent-context 0.4.5, bake-cargo 0.9.3, bake-license 0.2.11, bake-markdown 0.6.2, bake-readme 0.3.2, bake-releases 0.3.9, and bake-test 0.3.9, which require `bake` 0.20 or later instead of an open requirement. bake-cargo 0.9.3 also installs Bake launcher 0.20.2 in generated `publish.yml` and `release-artifacts.yml` workflows.
@@ -51,18 +56,6 @@ See [releases.md](releases.md) for the full release history.
 ### v0.1.9
 
 - Require bake-agent-context 0.4.4, bake-cargo 0.9.2, bake-license 0.2.10, bake-markdown 0.6.1, bake-readme 0.3.1, bake-releases 0.3.8, bake-test 0.3.8, base-design 0.1.1, and base-security 0.2.1. The Bake task crates' releases declare Rust 1.88, and the edition 2024 resolver prefers versions compatible with a workspace's `rust-version`, so repositories declaring Rust 1.87 kept resolving their older releases; `base-design` and `base-security` declare 1.87 and are raised to match. A repository's `bake/` package already needed Rust 1.88 to build, since Bake 0.20 uses let-chains; the canonical `minimum-rust` job skips it as a private package. Keep the `bake` minimum at 0.20.0: in a Rust 1.87 workspace, requiring bake 0.20.2 makes the task crates' open `bake` requirements resolve bake 0.19.2 alongside it, and the task package fails to compile.
-
-### v0.1.8
-
-- Report on standard error when the release hook's `license:update` changes a Rust file, naming the files, since a new header moves the line numbers in compile-fail snapshots such as trybuild `.stderr` files. The hook still applies headers.
-- Require bake-license 0.2.9, which provides `license:check`, and bake-test 0.3.7, whose canonical `test.yml` runs it in a `license` job within the `test-result` aggregate. Describe the check, and applying headers to every source, including test fixtures, from the start, in the setup, update, testing, pull request, GitHub repository, and releasing skills and the conventions; the hook's descriptions now say that it updates license headers.
-- Describe in the testing skill why tests must not depend on wall-clock upper bounds on shared CI runners, and how to test timing deterministically with a controlled clock or ordering, leaving real-time properties to benchmarks or explicitly opted-in tests.
-- Describe in the Package Organization guide how a foundation shared by several families, such as `base-message`, has no family, and record `base-message`'s scope.
-- Describe in the testing skill how to compile `context/` guide and readme examples as doctests under `cfg(doctest)`, keeping guides out of the published API documentation.
-- Add a Package Organization context guide, which explains the `base-http*`, `base-web-*`, and `bake-*` crate families, how to choose a crate's family, and that family members never depend on their umbrella or framework crate, and link it from the setup skill where crates are named.
-- Collect benchmark packages with `base-benchmark` and the `bake-benchmark` tasks in the `base-project-benchmarks` skill, instead of new driver scripts, and build workload records with `base-benchmark`.
-- Describe release artifacts in the `base-project-releasing` skill: attach them with Bake Cargo's `cargo:setup:artifacts` workflow, build the immutable release commit checked to be on `main`, keep signing secrets in a protected environment and give them to one step as files, verify fail-closed, and rely on `main`, the immutable commit, and verification rather than self-approved deployments.
-- Protect release tags against updates as well as deletion in the GitHub repository guide, and protect signing environments like `crates-io`.
 
 <!-- bake-readme:releases:end -->
 
