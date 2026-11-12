@@ -30,14 +30,11 @@ Prefer organization or repository labels that already exist. Add labels only whe
 
 ## Pull requests and commits
 
-- Disable merge commits; allow squash and rebase merging.
+- Allow squash merging only; disable merge commits and rebase merging, so each pull request lands on `main` as one commit carrying its title and description.
 - Build squash merge commits from the pull request title and description (`PR_TITLE` and `PR_BODY`), not from the concatenated commit messages, so the merged commit reads as the description was written and a release pull request keeps its `Release: TAG` trailer through review commits. `cargo:setup:github:apply` sets this.
 - Suggest updating pull request branches, allow auto-merge, and delete merged head branches automatically.
 - Require contributors to sign off on commits made through GitHub's web interface.
 - Allow comments on individual commits.
-- Use Markdown, complete sentences, and a final period for pull request titles and commit messages.
-- Keep most commit messages to one line. Start with what changed.
-- Describe pull requests in one paragraph: what changed, why, and the linked issue. The description becomes the merged commit message; detailed context goes in the issue, or in pull request comments when there is no issue. Do not add a separate change type section or assign an issue type to a pull request.
 
 Use the `base-project-pull-requests` skill for the full title, commit, description, testing, and release note conventions.
 

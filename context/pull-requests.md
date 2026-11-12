@@ -27,8 +27,8 @@ Scale the review to the change's complexity and risk. A small documentation chan
 
 ## Titles and commits
 
-- Pull request titles must use Markdown, be complete sentences, and end with a full stop.
-- Commit subjects must use Markdown and end with a full stop. Release commits also carry a `Release: TAG` Git trailer as specified by the releasing skill; its tag value has no trailing period.
+- Pull request titles must use Markdown, be complete sentences, and end with a full stop. The title becomes the subject of the squash-merged commit on `main`.
+- Commit subjects must use Markdown, be complete sentences, and end with a full stop. Release commits also carry a `Release: TAG` Git trailer as specified by the releasing skill; its tag value has no trailing period.
 - The first line of a commit message must focus on what changed.
 - Most commit messages should be a single line.
 - Keep relevant context in the code itself, such as comments, rather than using the commit message as a side channel for important details.
@@ -46,7 +46,7 @@ Do not add a `Types of Changes` section. Issue types classify GitHub issues; do 
 
 ## Testing
 
-Changes should include suitable test coverage. Aim for complete coverage of the behavior being changed or introduced. If a change directly affects downstream crates, add or update downstream integration coverage when useful.
+Changes should include suitable test coverage, following the `base-project-testing` skill, which requires 100% region coverage. If a change directly affects downstream crates, add or update downstream integration coverage when useful.
 
 Before opening a pull request that adds or changes Rust files, commit them and run `cargo bake license:check`, which the test workflow's `license` job also runs. When it names files, run `cargo bake license:update`, regenerate any compile-fail snapshots whose line numbers moved (for trybuild, `TRYBUILD=overwrite cargo test --workspace`), and commit the result; the `license` job fails the pull request until then. When the check names files the pull request did not change, they are out of date on `main` or on the commit the branch started from, usually because a squash merge changed an author or date: rebase onto `main` if it already has the fix, and otherwise fix them with `license:update` in a separate pull request.
 
@@ -54,7 +54,7 @@ Do not list passing test commands or verification steps in the pull request desc
 
 ## Release notes
 
-For user-visible changes, add a brief entry to `releases.md` following the release notes guidance provided by `bake-releases`.
+For user-visible changes, add a brief entry to `releases.md` in the format described by the [Bake Releases readme](https://github.com/base-rs/bake-releases/blob/main/readme.md).
 
 ## Issue types
 
