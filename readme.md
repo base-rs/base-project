@@ -43,6 +43,10 @@ Prepare a release with `cargo bake cargo:release:patch` (or `minor`, `major`, or
 
 See [releases.md](releases.md) for the full release history.
 
+### v0.1.12
+
+- Require `bake-releases` 0.3.10, reject hand edits to `releases.md` in CI, and have the skills ask for user-facing pull request titles and `Breaking:` paragraphs instead of release-note entries. ([#88](https://github.com/base-rs/base-project/pull/88))
+
 ### v0.1.11
 
 - Describe squash-only merging in the GitHub repository skill, and drop rebase merging from the releasing skill, which now refers to the GitHub repository skill for required checks.
@@ -52,10 +56,6 @@ See [releases.md](releases.md) for the full release history.
 
 - Require bake-agent-context 0.4.5, bake-cargo 0.9.3, bake-license 0.2.11, bake-markdown 0.6.2, bake-readme 0.3.2, bake-releases 0.3.9, and bake-test 0.3.9, which require `bake` 0.20 or later instead of an open requirement. bake-cargo 0.9.3 also installs Bake launcher 0.20.2 in generated `publish.yml` and `release-artifacts.yml` workflows.
 - Require `bake` 0.20.2, the version the task binary already resolved. It was held at 0.20.0 because, in a workspace declaring Rust 1.87, the task crates' open `bake` requirements resolved `bake` 0.19.2 alongside 0.20.2 and the `bake/` package failed to compile; with every task crate now requiring `bake` 0.20 or later, Cargo resolves a single `bake` 0.20.2.
-
-### v0.1.9
-
-- Require bake-agent-context 0.4.4, bake-cargo 0.9.2, bake-license 0.2.10, bake-markdown 0.6.1, bake-readme 0.3.1, bake-releases 0.3.8, bake-test 0.3.8, base-design 0.1.1, and base-security 0.2.1. The Bake task crates' releases declare Rust 1.88, and the edition 2024 resolver prefers versions compatible with a workspace's `rust-version`, so repositories declaring Rust 1.87 kept resolving their older releases; `base-design` and `base-security` declare 1.87 and are raised to match. A repository's `bake/` package already needed Rust 1.88 to build, since Bake 0.20 uses let-chains; the canonical `minimum-rust` job skips it as a private package. Keep the `bake` minimum at 0.20.0: in a Rust 1.87 workspace, requiring bake 0.20.2 makes the task crates' open `bake` requirements resolve bake 0.19.2 alongside it, and the task package fails to compile.
 
 <!-- bake-readme:releases:end -->
 

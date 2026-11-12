@@ -1,5 +1,9 @@
 # Releases
 
+## v0.1.12
+
+- Require `bake-releases` 0.3.10, reject hand edits to `releases.md` in CI, and have the skills ask for user-facing pull request titles and `Breaking:` paragraphs instead of release-note entries. ([#88](https://github.com/base-rs/base-project/pull/88))
+
 ## v0.1.11
 
 - Describe squash-only merging in the GitHub repository skill, and drop rebase merging from the releasing skill, which now refers to the GitHub repository skill for required checks.
