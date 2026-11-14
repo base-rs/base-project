@@ -1,5 +1,9 @@
 # Releases
 
+## v0.1.13
+
+- Check pushes to `main` for hand edits to `releases.md`, against the tip before the push, so one that passed its pull request's check still fails. ([#90](https://github.com/base-rs/base-project/pull/90))
+
 ## v0.1.12
 
 - Require `bake-releases` 0.3.10, reject hand edits to `releases.md` in CI, and have the skills ask for user-facing pull request titles and `Breaking:` paragraphs instead of release-note entries. ([#88](https://github.com/base-rs/base-project/pull/88))
