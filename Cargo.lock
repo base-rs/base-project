@@ -105,9 +105,9 @@ dependencies = [
 
 [[package]]
 name = "bake-releases"
-version = "0.3.10"
+version = "0.3.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8afa510a7ef7b02aa070a7715473ac5e3835b57d13c7312a59f48f0ab04e3686"
+checksum = "d77ed3e945747af8af100ffb7e65ba985b912dfa5f110347d70392634a5a90f7"
 dependencies = [
  "bake",
  "base-markdown",

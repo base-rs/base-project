@@ -13,6 +13,8 @@ use bake_markdown as _;
 use bake_readme as _;
 use bake_releases as _;
 use bake_test as _;
+use base_design as _;
+use base_security as _;
 
 mod markdown;
 
