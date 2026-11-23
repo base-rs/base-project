@@ -52,7 +52,7 @@ Keep security audit records in `security/audit-*.md` and published advisory reco
 
 ## Test layout
 
-Prefer to mirror the source organization in tests. Keep small unit test suites within the module they exercise, using an inline `#[cfg(test)] mod tests`. When a suite grows, move it into that module's directory; for example, `src/parser/inline_parser.rs` can declare tests from `src/parser/inline_parser/tests.rs`. This keeps tests able to access private implementation details without exposing them as public API.
+Prefer to mirror the source organization in tests. Keep small unit test suites within the module they exercise, using an inline `#[cfg(test)] mod tests`. When a suite grows, move it into that module's directory; for example, `src/parser/inline_parser.rs` can declare tests from `src/parser/inline_parser/tests.rs`. This keeps tests able to access private implementation details without exposing them as public interface.
 
 Put integration tests under `tests/` to check the public crate interface. A multi-file suite can be grouped by subsystem, with `main.rs` as the test target root and sibling files as test modules:
 
@@ -64,7 +64,7 @@ tests/
     └── inline_parser.rs
 ```
 
-Declare child modules from `main.rs`; Cargo discovers the target root and the declared modules organize the suite. Integration tests exercise the public crate API. See the [Cargo integration test layout](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#integration-tests).
+Declare child modules from `main.rs`; Cargo discovers the target root and the declared modules organize the suite. Integration tests exercise the public crate interface. See the [Cargo integration test layout](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#integration-tests).
 
 Put runnable examples under `examples/`. Store project tool configuration in a clearly named configuration file or the relevant Cargo metadata; avoid adding a configuration directory without a concrete tool that uses it.
 

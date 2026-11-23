@@ -14,7 +14,7 @@ Use this skill whenever a change adds or changes behavior that should be verifie
 - Require 100% region coverage for supported target and feature configurations. Use LLVM's region report to find executable paths that tests have not run.
 - Treat uncovered code as an opportunity to review semantics. Check that its behavior is correct, add tests for meaningful behavior, and fix defects rather than writing tests that codify accidental behavior. Remove dead code or make invariants explicit when a region cannot represent supported behavior; do not manufacture impossible internal states just to reach it.
 - Run coverage on each supported target or configuration that compiles distinct platform-specific code.
-- Consider external compatibility tests when a change could affect downstream crates that use this project's public API. Select the relevant consumers; downstream testing is not required for every change.
+- Consider external compatibility tests when a change could affect downstream crates that use this project's public interface. Select the relevant consumers; downstream testing is not required for every change.
 
 Follow the repository's test layout guidance when choosing between unit and integration tests.
 
@@ -54,7 +54,7 @@ Excluding a file from the coverage gate is a last resort, only for raw device, h
 
 ## Test guide and readme examples
 
-Compile every Rust example in `context/` guides and `readme.md` as a doctest, so documentation cannot drift from the API. Include each file in the crate under `cfg(doctest)`, which tests its examples without adding the text to the published API documentation:
+Compile every Rust example in `context/` guides and `readme.md` as a doctest, so documentation cannot drift from the interface. Include each file in the crate under `cfg(doctest)`, which tests its examples without adding the text to the published interface documentation:
 
 ```rust
 #[cfg(doctest)]

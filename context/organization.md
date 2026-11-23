@@ -6,7 +6,7 @@ Use this guide when naming a new Base crate or repository, or deciding where a c
 
 The `base-` prefix identifies a Base package in the flat crates.io namespace. It says nothing about what the package does, so related packages share a second-level prefix that names their family:
 
-- `base-http*`: HTTP transport, including message semantics, bodies, protocol framing, clients, and servers. HTTP carries more than web pages, such as APIs, RPC, and proxies, so it is its own family rather than part of the web family.
+- `base-http*`: HTTP transport, including message semantics, bodies, protocol framing, clients, and servers. HTTP carries more than web pages, such as service interfaces, RPC, and proxies, so it is its own family rather than part of the web family.
 - `base-web-*`: web content and addressing standards, such as URLs, media types, multipart bodies, HTML, and form content. The `base-web` name is reserved for the web framework, which will build on and re-export the family.
 - `bake-*`: task libraries for Bake. They are development tooling, never runtime dependencies of a library.
 - `base-*` without a family: standalone capabilities that no family describes, such as the scheduler, resource pools, endpoints, and benchmark tooling. A foundation that several families build on also has no family, so that neither depends on the other: `base-message` holds the header and trailer field sections that HTTP, email, and MIME messages share, and their interpretation, for `base-http` and `base-web-multipart` alike. Its scope is only those field sections; control data, content, framing, and transport stay with each protocol's crate.

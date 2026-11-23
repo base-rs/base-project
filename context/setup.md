@@ -90,4 +90,4 @@ Use `cargo bake cargo:setup:workflow` to generate `.github/workflows/publish.yml
 
 ## Work on the project
 
-Keep the root `readme.md` concise and human-focused. Use the project context and Rust API documentation for detailed implementation guidance. Run the project's checks before opening a pull request, and write its title as the release note, following the `base-project-pull-requests` skill.
+Keep the root `readme.md` concise and human-focused. Use the project context and Rust interface documentation for detailed implementation guidance. Run the project's checks before opening a pull request, and write its title as the release note, following the `base-project-pull-requests` skill.

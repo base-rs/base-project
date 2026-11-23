@@ -23,7 +23,7 @@ When sub-agents are available, use a sub-agent that did not implement the change
 - Evaluate each finding against the intended behavior. Fix substantive issues and run the relevant checks; explain with evidence when a concern does not apply.
 - Iterate locally through review and fixes until all non-trivial issues are resolved. Have the reviewer confirm the final commit before opening the pull request. If the changes are revised later, re-review the affected changes before merging.
 
-Scale the review to the change's complexity and risk. A small documentation change needs a focused check of clarity and factual accuracy; changes to public APIs or runtime behavior need deeper scrutiny of semantics and regressions. Complete the required tests and configured GitHub approvals alongside the adversarial review.
+Scale the review to the change's complexity and risk. A small documentation change needs a focused check of clarity and factual accuracy; changes to public interfaces or runtime behavior need deeper scrutiny of semantics and regressions. Complete the required tests and configured GitHub approvals alongside the adversarial review.
 
 ## Titles and commits
 
