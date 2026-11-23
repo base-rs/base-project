@@ -38,6 +38,15 @@ Keep public paths independent of redundant namespace layers such as `bake_agent_
 
 Before introducing a new semantic, layout, or naming pattern, check how related Base packages handle the same concern. Reuse an established pattern when it fits the package's purpose. When a package establishes or changes a pattern, document the rationale and intended usage in that package's context so later work has a reference. Preserve differences that reflect real domain needs; consistency should make related packages easier to understand, not flatten their APIs into one shape.
 
+## Performance
+
+Runtime efficiency comes first, then simplicity. Code is written with agent assistance, so the amount of implementation code is not itself a constraint, but what people review, compile and call is:
+
+- Prefer the faster implementation even when it takes more code, when the extra code is proportionate to the gain. Measure each fast path, cover it with its own tests, and comment why it exists.
+- Keep compiling fast, so tests run quickly. Prefer a runtime branch to a new generic parameter on hot or widely instantiated code, and avoid duplicating large generic functions.
+- Add cases, not dimensions. A fast path is a small, fixed number of cases in one place, such as a never-cancelled, watched and plain cancellation; never a combination of them across interfaces, buffer kinds and backends.
+- In the public API, accept a little extra verbosity when it wins performance, such as one explicit call per task, without adding parallel interfaces for the same operation. People write the code that calls these APIs.
+
 ## API design
 
 - Prefer unique ownership and borrowing for values with a clear owner. Use `Rc` or `Arc` when components need shared ownership with independent lifetimes; use `Arc` for shared ownership across threads.
