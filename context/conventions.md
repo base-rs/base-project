@@ -40,7 +40,7 @@ Before introducing a new semantic, layout, or naming pattern, check how related 
 
 ## Performance
 
-Runtime efficiency comes first, then simplicity. Code is written with agent assistance, so the amount of code is not itself a constraint, but its complexity is: complex code can hide its true intent, hide bugs, and create poor interactions between its parts.
+Runtime efficiency comes first, then simplicity. Code is written with agent assistance, so the amount of code is not itself a constraint, but its complexity is: complex code can hide its true intent, and create bugs through unexpected interactions between its parts.
 
 - Prefer the faster implementation even when it takes more code, when the extra code is proportionate to the gain. Be skeptical of complexity that hides what the code is for: keep each fast path's intent plain, measure it, cover it with its own tests, and comment why it exists.
 - Don't make compiling slow, so tests keep running quickly. Prefer a runtime branch to a new generic parameter on hot or widely instantiated code, and avoid duplicating large generic functions.
