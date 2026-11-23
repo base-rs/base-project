@@ -45,7 +45,7 @@ Runtime efficiency comes first, then simplicity. Code is written with agent assi
 - Prefer the faster implementation even when it takes more code, when the extra code is proportionate to the gain. Be skeptical of complexity that hides what the code is for: keep each fast path's intent plain, measure it, cover it with its own tests, and comment why it exists.
 - Understand the trade-off of monomorphisation: each instantiation of a generic function is compiled and optimised separately, which makes it fast but costs compile time, so the tests take longer to build. Choose generics where that speed matters. Otherwise keep large generic functions thin, with their type-independent work in non-generic functions, and branch at run time on a choice only known then, or one that would make a widely used interface generic.
 - Avoid a combinatorial explosion of code paths and interfaces. Decide a fast path's cases in one place, rather than adding a variant for every combination of the things it varies with, each of which needs its own tests and can interact with the others.
-- In the public API, accept a little extra verbosity when it wins performance, such as one explicit call per task, without adding parallel interfaces for the same operation.
+- In the public API, accept a little extra verbosity when it wins performance, without adding parallel interfaces for the same operation.
 
 ## API design
 
