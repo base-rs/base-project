@@ -40,11 +40,11 @@ Before introducing a new semantic, layout, or naming pattern, check how related 
 
 ## Performance
 
-Runtime efficiency comes first, then simplicity. Code is written with agent assistance, so the amount of code is not itself a constraint. Review effort and compile time are:
+Runtime efficiency comes first, then simplicity. Code is written with agent assistance, so the amount of code is not itself a constraint, but its complexity is: complex code can hide bugs and create poor interactions between its parts.
 
-- Prefer the faster implementation even when it takes more code, when the extra code is proportionate to the gain. Measure each fast path, cover it with its own tests, and comment why it exists.
+- Prefer the faster implementation even when it takes more code, when the extra code is proportionate to the gain and adds no complexity elsewhere. Keep each fast path self-contained, measure it, cover it with its own tests, and comment why it exists.
 - Don't make compiling slow, so tests keep running quickly. Prefer a runtime branch to a new generic parameter on hot or widely instantiated code, and avoid duplicating large generic functions.
-- Add cases, not dimensions. A fast path is a small, fixed number of cases in one place, such as a never-cancelled, watched and plain cancellation; never a combination of them across interfaces, buffer kinds and backends.
+- Add cases, not dimensions. A fast path is a small, fixed number of cases in one place, such as a never-cancelled, watched and plain cancellation; never a combination of them across interfaces, buffer kinds and backends, whose interactions multiply.
 - In the public API, accept a little extra verbosity when it wins performance, such as one explicit call per task, without adding parallel interfaces for the same operation.
 
 ## API design
