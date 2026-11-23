@@ -1,5 +1,12 @@
 # Releases
 
+## v0.1.14
+
+- Move the conventions' performance guidance into `base-project-performance`, which already decides what optimizations to keep. ([#95](https://github.com/base-rs/base-project/pull/95))
+- Say interface rather than API throughout the project context. ([#94](https://github.com/base-rs/base-project/pull/94))
+- Correct the performance convention: complexity, not the amount of code, limits fast paths, and they must not make compiling slow. ([#93](https://github.com/base-rs/base-project/pull/93))
+- Add a performance convention: prefer the faster implementation when its extra code is proportionate, keeping compiles fast and adding cases rather than interface dimensions. ([#92](https://github.com/base-rs/base-project/pull/92))
+
 ## v0.1.13
 
 - Check pushes to `main` for hand edits to `releases.md`, against the tip before the push, so one that passed its pull request's check still fails. ([#90](https://github.com/base-rs/base-project/pull/90))

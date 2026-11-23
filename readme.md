@@ -43,6 +43,13 @@ Prepare a release with `cargo bake cargo:release:patch` (or `minor`, `major`, or
 
 See [releases.md](releases.md) for the full release history.
 
+### v0.1.14
+
+- Move the conventions' performance guidance into `base-project-performance`, which already decides what optimizations to keep. ([#95](https://github.com/base-rs/base-project/pull/95))
+- Say interface rather than API throughout the project context. ([#94](https://github.com/base-rs/base-project/pull/94))
+- Correct the performance convention: complexity, not the amount of code, limits fast paths, and they must not make compiling slow. ([#93](https://github.com/base-rs/base-project/pull/93))
+- Add a performance convention: prefer the faster implementation when its extra code is proportionate, keeping compiles fast and adding cases rather than interface dimensions. ([#92](https://github.com/base-rs/base-project/pull/92))
+
 ### v0.1.13
 
 - Check pushes to `main` for hand edits to `releases.md`, against the tip before the push, so one that passed its pull request's check still fails. ([#90](https://github.com/base-rs/base-project/pull/90))
@@ -50,11 +57,6 @@ See [releases.md](releases.md) for the full release history.
 ### v0.1.12
 
 - Require `bake-releases` 0.3.10, reject hand edits to `releases.md` in CI, and have the skills ask for user-facing pull request titles and `Breaking:` paragraphs instead of release-note entries. ([#88](https://github.com/base-rs/base-project/pull/88))
-
-### v0.1.11
-
-- Describe squash-only merging in the GitHub repository skill, and drop rebase merging from the releasing skill, which now refers to the GitHub repository skill for required checks.
-- Keep title, commit, and description conventions in the pull request skill rather than repeating them in the GitHub repository skill. The pull request skill now says that titles become squash commit subjects and commit subjects are complete sentences, refers to the testing skill's 100% region coverage, and links to the Bake Releases readme for the `releases.md` format, since `bake-releases` supplies no context guide.
 
 <!-- bake-readme:releases:end -->
 
