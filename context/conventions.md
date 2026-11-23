@@ -40,7 +40,7 @@ Before introducing a new semantic, layout, or naming pattern, check how related 
 
 ## Performance
 
-Runtime efficiency comes first, then simplicity. Code is written with agent assistance, so the amount of code is not itself a constraint, but what people review, and how long it takes to compile, is:
+Runtime efficiency comes first, then simplicity. Code is written with agent assistance, so the amount of code is not itself a constraint. Review effort and compile time are:
 
 - Prefer the faster implementation even when it takes more code, when the extra code is proportionate to the gain. Measure each fast path, cover it with its own tests, and comment why it exists.
 - Don't make compiling slow, so tests keep running quickly. Prefer a runtime branch to a new generic parameter on hot or widely instantiated code, and avoid duplicating large generic functions.
