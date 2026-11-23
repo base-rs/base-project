@@ -40,12 +40,12 @@ Before introducing a new semantic, layout, or naming pattern, check how related 
 
 ## Performance
 
-Runtime efficiency comes first, then simplicity. Code is written with agent assistance, so the amount of implementation code is not itself a constraint, but what people review, compile and call is:
+Runtime efficiency comes first, then simplicity. Code is written with agent assistance, so the amount of code is not itself a constraint, but its complexity is: complex code can hide its true intent, and create bugs through unexpected interactions between its parts. It can also make code hard to refactor by exposing too many internals, though that matters less, since agents can generally do the refactoring.
 
-- Prefer the faster implementation even when it takes more code, when the extra code is proportionate to the gain. Measure each fast path, cover it with its own tests, and comment why it exists.
-- Keep compiling fast, so tests run quickly. Prefer a runtime branch to a new generic parameter on hot or widely instantiated code, and avoid duplicating large generic functions.
-- Add cases, not dimensions. A fast path is a small, fixed number of cases in one place, such as a never-cancelled, watched and plain cancellation; never a combination of them across interfaces, buffer kinds and backends.
-- In the public API, accept a little extra verbosity when it wins performance, such as one explicit call per task, without adding parallel interfaces for the same operation. People write the code that calls these APIs.
+- Prefer the faster implementation even when it takes more code, when the extra code is proportionate to the gain. Be skeptical of complexity that hides what the code is for: keep each fast path's intent plain, measure it, cover it with its own tests, and comment why it exists.
+- Understand the trade-off of monomorphisation: each instantiation of a generic function is compiled and optimised separately, which makes it fast but costs compile time, so the tests take longer to build. Choose generics where that speed matters. Otherwise keep large generic functions thin, with their type-independent work in non-generic functions, and branch at run time on a choice only known then, or one that would make a widely used interface generic.
+- Avoid a combinatorial explosion of code paths and interfaces. Decide a fast path's cases in one place, rather than adding a variant for every combination of the things it varies with, each of which needs its own tests and can interact with the others.
+- In the public interface, accept a little extra verbosity when it wins performance, without adding parallel interfaces for the same operation.
 
 ## API design
 
